@@ -1,29 +1,55 @@
-<script setup>
+<script>
+
+export default {
+    name: "Header",
+    components: {
+
+    },
+
+    data() {
+      return {};
+    },
+
+    methods:{
+      Login() {
+        console.log("chuyển đến trang đăng nhập!")
+      },
+
+      Register() {
+        console.log("chuyển đến trang đăng ký!")
+      },
+    },
+};
 </script>
 
 <template>
   <div class="header">
-    <a href="#default" class="logo">CompanyLogo</a>
+    <a href="#default" class="logo">SpaCare</a>
     <div class="header-right">
-      <a class="active" href="#home">Home</a>
-      <a href="#contact">Contact</a>
-      <a href="#about">About</a>
+      <a href="#home">Trang Chủ</a>
+      <a href="#contact">Kết nối</a>
+      <a href="#about">Giới thiệu</a>
+      <div class="header-right">
+        <a href="#login" @click="Login">Đăng nhập</a>
+        <a href="#about" @click="Register">Đăng ký</a>
+      </div>
     </div>
   </div>
-
 </template>
 
 <style scoped>
-* {box-sizing: border-box;}
+* {
+  box-sizing: border-box;
+}
 
-body { 
+body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: rgb(111, 191, 226);
   padding: 20px 10px;
 }
 
@@ -33,7 +59,7 @@ body {
   text-align: center;
   padding: 12px;
   text-decoration: none;
-  font-size: 18px; 
+  font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
 }
@@ -63,7 +89,7 @@ body {
     display: block;
     text-align: left;
   }
-  
+
   .header-right {
     float: none;
   }
