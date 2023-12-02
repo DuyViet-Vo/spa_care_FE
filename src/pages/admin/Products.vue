@@ -1,7 +1,5 @@
 <template lang="">
-    <div>
-        
-    </div>
+   Đây là sản phẩm
 </template>
 <script>
 export default {

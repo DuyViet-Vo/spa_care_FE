@@ -27,8 +27,9 @@ export default {
     <a href="#default" class="logo">SpaCare</a>
     <div class="header-right">
       <a href="#home">Trang Chủ</a>
-      <a href="#contact">Kết nối</a>
-      <a href="#about">Giới thiệu</a>
+      <a href="#contact">Đặt lịch</a>
+      <a href="#contact">Dịch vụ</a>
+      <a href="#about">Sản phẩm</a>
       <div class="header-right">
         <a href="#login" @click="Login">Đăng nhập</a>
         <a href="#about" @click="Register">Đăng ký</a>
