@@ -12,8 +12,13 @@ const user = [
                 path: "/lich-hen",
                 name: "lich-hen",
                 component: () => import("@/pages/user/LichHen.vue")
+            },
+            {
+                path: "/login",
+                name: "login",
+                component: () => import("@/pages/user/Login.vue")
             }
         ]
-    }
+    },
 ]
 export default user;
