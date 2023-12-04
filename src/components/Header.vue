@@ -1,24 +1,30 @@
 <script>
-
 export default {
-    name: "Header",
-    components: {
+  name: "Header",
+  components: {},
 
+  data() {
+    return {};
+  },
+  computed: {
+    getToken() {
+      console.log("ten")
+      return this.$store.getters.getToken;
+    },
+    getUsername() {
+      
+      return this.$store.getters.getUsername;
+    },
+  },
+  methods: {
+    Login() {
+      console.log("chuyển đến trang đăng nhập!");
     },
 
-    data() {
-      return {};
+    Register() {
+      console.log("chuyển đến trang đăng ký!");
     },
-
-    methods:{
-      Login() {
-        console.log("chuyển đến trang đăng nhập!")
-      },
-
-      Register() {
-        console.log("chuyển đến trang đăng ký!")
-      },
-    },
+  },
 };
 </script>
 
@@ -26,13 +32,16 @@ export default {
   <div class="header">
     <a href="#default" class="logo">SpaCare</a>
     <div class="header-right">
-      <a href="#home">Trang Chủ</a>
+      <router-link to="/user/trang-chu">Trang Chủ</router-link>
       <router-link to="/user/lich-hen">Đặt lịch</router-link>
       <a href="#contact">Dịch vụ</a>
       <a href="#about">Sản phẩm</a>
-      <div class="header-right">
+      <div class="header-right" v-if="getToken === null">
         <router-link to="/user/login">Đăng nhập</router-link>
         <router-link to="/user/register">Đăng ký</router-link>
+      </div>
+      <div class="header-right" v-else>
+        <a>{{ getUsername }}</a>
       </div>
     </div>
   </div>

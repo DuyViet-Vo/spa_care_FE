@@ -22,6 +22,11 @@ const user = [
                 path: "/user/register",
                 name: "Register",
                 component: () => import("@/pages/user/Register.vue")
+            },
+            {
+                path: "/user/test",
+                name: "Test",
+                component: () => import("@/pages/user/Test.vue")
             }
         ]
     },

@@ -11,31 +11,13 @@
             />
           </div>
           <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-            <form>
-              <div
-                class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"
-              >
-                <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-                <button type="button" class="btn btn-primary btn-floating mx-1">
-                  <i class="fa-brands fa-facebook"></i>
-                </button>
-
-                <button type="button" class="btn btn-primary btn-floating mx-1">
-                  <i class="fab fa-twitter"></i>
-                </button>
-
-                <button type="button" class="btn btn-primary btn-floating mx-1">
-                  <i class="fab fa-linkedin-in"></i>
-                </button>
-              </div>
-
-              <div class="divider d-flex align-items-center my-4">
-                <p class="text-center fw-bold mx-3 mb-0">Or</p>
-              </div>
+            <form @submit.prevent="login">
+              <!-- ... (các phần đã có) -->
 
               <!-- Email input -->
               <div class="form-outline mb-4">
                 <input
+                  v-model="email"
                   type="email"
                   id="form3Example3"
                   class="form-control form-control-lg"
@@ -49,12 +31,17 @@
               <!-- Password input -->
               <div class="form-outline mb-3">
                 <input
+                  v-model="password"
                   type="password"
                   id="form3Example4"
                   class="form-control form-control-lg"
                   placeholder="Enter password"
                 />
                 <label class="form-label" for="form3Example4">Password</label>
+              </div>
+              <!-- Hiển thị thông báo lỗi nếu có -->
+              <div v-if="error" class="alert alert-danger" role="alert">
+                {{ error }}
               </div>
 
               <div class="d-flex justify-content-between align-items-center">
@@ -75,7 +62,7 @@
 
               <div class="text-center text-lg-start mt-4 pt-2">
                 <button
-                  type="button"
+                  type="submit"
                   class="btn btn-primary btn-lg"
                   style="padding-left: 2.5rem; padding-right: 2.5rem"
                 >
@@ -83,7 +70,9 @@
                 </button>
                 <p class="small fw-bold mt-2 pt-1 mb-0">
                   Don't have an account?
-                  <a href="#!" class="link-danger">Register</a>
+                  <router-link to="/user/register" class="link-danger"
+                    >Register</router-link
+                  >
                 </p>
               </div>
             </form>
@@ -94,13 +83,51 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+import API_ENDPOINTS from '@/config';
+
 export default {
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
-      submitted: false,
+      error: "",
     };
+  },
+  methods: {
+    async login() {
+      try {
+        const baseUrl = API_ENDPOINTS.apiUrl + "/login"
+        console.log("url: ", baseUrl)
+        const response = await axios.post(
+          baseUrl,
+          {
+            email: this.email,
+            password: this.password,
+          },
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const token = response.data.access;
+        const username = this.email
+        console.log(username);
+
+        // Lưu token vào Vuex store
+        this.$store.dispatch("saveToken", {token, username});
+        
+        // Xử lý response ở đây nếu cần
+        // Chuyển hướng hoặc thực hiện các công việc cần thiết sau khi đăng nhập thành công
+        this.$router.push('/user/trang-chu')
+      } catch (error) {
+        // Xử lý lỗi ở đây nếu có
+        console.error(error);
+        this.error = "Email hoặc mật khẩu chưa chính xác! Vui lòng nhập lại!";
+      }
+    },
   },
 };
 </script>
