@@ -4,7 +4,7 @@ const admin = [
         component: () => import("@/layouts/Admin.vue"),
         children: [
             {
-                path: "/home",
+                path: "/admin/home",
                 name: "home",
                 component: () => import("@/pages/admin/Products.vue")
             }

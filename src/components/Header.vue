@@ -27,12 +27,12 @@ export default {
     <a href="#default" class="logo">SpaCare</a>
     <div class="header-right">
       <a href="#home">Trang Chủ</a>
-      <a href="#contact">Đặt lịch</a>
+      <router-link to="/user/lich-hen">Đặt lịch</router-link>
       <a href="#contact">Dịch vụ</a>
       <a href="#about">Sản phẩm</a>
       <div class="header-right">
-        <a href="#login" @click="Login">Đăng nhập</a>
-        <a href="#about" @click="Register">Đăng ký</a>
+        <router-link to="/user/login">Đăng nhập</router-link>
+        <router-link to="/user/register">Đăng ký</router-link>
       </div>
     </div>
   </div>
