@@ -84,7 +84,7 @@
 </template>
 <script>
 import axios from "axios";
-import API_ENDPOINTS from '@/config';
+import API_ENDPOINTS from "@/config";
 
 export default {
   data() {
@@ -97,8 +97,8 @@ export default {
   methods: {
     async login() {
       try {
-        const baseUrl = API_ENDPOINTS.apiUrl + "/login"
-        console.log("url: ", baseUrl)
+        const baseUrl = API_ENDPOINTS.apiUrl + "/login";
+        console.log("url: ", baseUrl);
         const response = await axios.post(
           baseUrl,
           {
@@ -113,15 +113,15 @@ export default {
           }
         );
         const token = response.data.access;
-        const username = this.email
+        const username = this.email;
         console.log(username);
 
         // Lưu token vào Vuex store
-        this.$store.dispatch("saveToken", {token, username});
-        
+        this.$store.dispatch("saveToken", { token, username });
+
         // Xử lý response ở đây nếu cần
         // Chuyển hướng hoặc thực hiện các công việc cần thiết sau khi đăng nhập thành công
-        this.$router.push('/user/trang-chu')
+        this.$router.push("/user/trang-chu");
       } catch (error) {
         // Xử lý lỗi ở đây nếu có
         console.error(error);

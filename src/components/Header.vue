@@ -8,21 +8,16 @@ export default {
   },
   computed: {
     getToken() {
-      console.log("ten")
+      console.log("ten");
       return this.$store.getters.getToken;
     },
     getUsername() {
-      
       return this.$store.getters.getUsername;
     },
   },
   methods: {
-    Login() {
-      console.log("chuyển đến trang đăng nhập!");
-    },
-
-    Register() {
-      console.log("chuyển đến trang đăng ký!");
+    LogOut() {
+      this.$store.dispatch("logout", "");
     },
   },
 };
@@ -34,14 +29,15 @@ export default {
     <div class="header-right">
       <router-link to="/user/trang-chu">Trang Chủ</router-link>
       <router-link to="/user/lich-hen">Đặt lịch</router-link>
-      <a href="#contact">Dịch vụ</a>
-      <a href="#about">Sản phẩm</a>
+      <router-link to="/user/dich-vu">Dịch vụ</router-link>
+      <router-link to="/user/san-pham">Sản phẩm</router-link>
       <div class="header-right" v-if="getToken === null">
         <router-link to="/user/login">Đăng nhập</router-link>
         <router-link to="/user/register">Đăng ký</router-link>
       </div>
       <div class="header-right" v-else>
         <a>{{ getUsername }}</a>
+        <a @click="LogOut">Đăng xuất</a>
       </div>
     </div>
   </div>

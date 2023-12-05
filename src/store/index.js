@@ -28,6 +28,6 @@ export default createStore({
   },
   getters: {
     getToken: (state) => state.token,
-    getUsername: (state) => state.username
+    getUsername: (state) => state.username,
   },
 });

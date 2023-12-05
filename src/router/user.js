@@ -1,34 +1,39 @@
 const user = [
-    {
-        path: "/user",
-        component: () => import("@/layouts/User.vue"),
-        children: [
-            {
-                path: "/user/trang-chu",
-                name: "trang-chu",
-                component: () => import("@/pages/user/ProductList.vue")
-            },
-            {
-                path: "/user/lich-hen",
-                name: "lich-hen",
-                component: () => import("@/pages/user/LichHen.vue")
-            },
-            {
-                path: "/user/login",
-                name: "login",
-                component: () => import("@/pages/user/Login.vue")
-            },
-            {
-                path: "/user/register",
-                name: "Register",
-                component: () => import("@/pages/user/Register.vue")
-            },
-            {
-                path: "/user/test",
-                name: "Test",
-                component: () => import("@/pages/user/Test.vue")
-            }
-        ]
-    },
-]
+  {
+    path: "/user",
+    component: () => import("@/layouts/User.vue"),
+    children: [
+      {
+        path: "/user/trang-chu",
+        name: "trang-chu",
+        component: () => import("@/pages/user/ProductList.vue"),
+      },
+      {
+        path: "/user/lich-hen",
+        name: "lich-hen",
+        component: () => import("@/pages/user/LichHen.vue"),
+      },
+      {
+        path: "/user/login",
+        name: "login",
+        component: () => import("@/pages/user/Login.vue"),
+      },
+      {
+        path: "/user/register",
+        name: "Register",
+        component: () => import("@/pages/user/Register.vue"),
+      },
+      {
+        path: "/user/san-pham",
+        name: "san-pham",
+        component: () => import("@/pages/user/SanPham.vue"),
+      },
+      {
+        path: "/user/dich-vu",
+        name: "dich-vu",
+        component: () => import("@/pages/user/DichVu.vue"),
+      },
+    ],
+  },
+];
 export default user;

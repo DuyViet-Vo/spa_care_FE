@@ -1,7 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: rgb(111, 191, 226);">
+      <div
+        class="col-auto col-md-3 col-xl-2 px-sm-2 px-0"
+        style="background-color: rgb(111, 191, 226)"
+      >
         <div
           class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
         >
@@ -18,7 +21,7 @@
             <li class="nav-item">
               <a href="#" class="nav-link align-middle px-0">
                 <i class="fa-solid fa-house"></i>
-                <span class="ms-1 d-none d-sm-inline ">Trang chủ</span>
+                <span class="ms-1 d-none d-sm-inline">Trang chủ</span>
               </a>
             </li>
             <li>
@@ -42,8 +45,9 @@
             <li>
               <a href="#" class="nav-link px-0 align-middle">
                 <i class="fs-4 bi-table"></i>
-                <span class="ms-1 d-none d-sm-inline">Nhân viên<noscript></noscript></span></a
-              >
+                <span class="ms-1 d-none d-sm-inline"
+                  >Nhân viên<noscript></noscript></span
+              ></a>
             </li>
           </ul>
           <hr />
