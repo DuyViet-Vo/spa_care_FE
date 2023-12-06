@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="vh-100" style="background-color: #eee">
+    <section class="vh-100" style="background-color: #eee; margin-bottom: 50px">
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-lg-12 col-xl-11">
@@ -17,6 +17,7 @@
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input
+                            v-model="name"
                             type="text"
                             id="form3Example1c"
                             class="form-control"
@@ -31,6 +32,7 @@
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input
+                            v-model="email"
                             type="email"
                             id="form3Example3c"
                             class="form-control"
@@ -45,6 +47,7 @@
                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input
+                            v-model="password"
                             type="password"
                             id="form3Example4c"
                             class="form-control"
@@ -55,20 +58,16 @@
                         </div>
                       </div>
 
-                      <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input
-                            type="password"
-                            id="form3Example4cd"
-                            class="form-control"
-                          />
-                          <label class="form-label" for="form3Example4cd"
-                            >Repeat your password</label
-                          >
-                        </div>
+                      <div
+                        v-if="message"
+                        :class="{
+                          'alert alert-success': isSuccess,
+                          'alert alert-danger': !isSuccess,
+                        }"
+                        role="alert"
+                      >
+                        {{ message }}
                       </div>
-
                       <div
                         class="form-check d-flex justify-content-center mb-5"
                       >
@@ -87,7 +86,11 @@
                       <div
                         class="d-flex justify-content-center mx-4 mb-3 mb-lg-4"
                       >
-                        <button type="button" class="btn btn-primary btn-lg">
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-lg"
+                          @click="registerUser"
+                        >
                           Register
                         </button>
                       </div>
@@ -112,6 +115,47 @@
   </div>
 </template>
 <script>
-export default {};
+import axios from "axios";
+import API from "@/api";
+export default {
+  data() {
+    return {
+      message: "",
+      name: "", // Add this line
+      email: "",
+      password: "",
+      isSuccess: false,
+    };
+  },
+  methods: {
+    async registerUser() {
+      try {
+        const response = await axios.post(
+          API.register,
+          {
+            password: this.password,
+            email: this.email,
+            quyen: 1,
+            ho_ten: this.name,
+          },
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        console.log("API Response:", response.data);
+        this.message = "Đăng ký tài khoản thành công!";
+        this.isSuccess = true;
+      } catch (error) {
+        console.error("API Error:", error);
+        this.isSuccess = false;
+        this.message = "Tài khoản đã tồn tại, vui lòng nhập lại!";
+      }
+    },
+  },
+};
 </script>
 <style></style>

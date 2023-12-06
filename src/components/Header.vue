@@ -8,7 +8,6 @@ export default {
   },
   computed: {
     getToken() {
-      console.log("ten");
       return this.$store.getters.getToken;
     },
     getUsername() {

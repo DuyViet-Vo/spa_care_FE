@@ -69,16 +69,12 @@ input {
   box-sizing: border-box;
 }
 
-button {
+.datLich {
   background-color: #3498db;
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-.datLich {
-  width: 110px;
-  height: auto;
 }
 </style>

@@ -84,7 +84,7 @@
 </template>
 <script>
 import axios from "axios";
-import API_ENDPOINTS from "@/config";
+import API from "@/api";
 
 export default {
   data() {
@@ -97,10 +97,9 @@ export default {
   methods: {
     async login() {
       try {
-        const baseUrl = API_ENDPOINTS.apiUrl + "/login";
-        console.log("url: ", baseUrl);
+        console.log("url: ", API.login);
         const response = await axios.post(
-          baseUrl,
+          API.login,
           {
             email: this.email,
             password: this.password,

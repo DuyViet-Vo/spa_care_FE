@@ -20,7 +20,7 @@
             <div class="part-2">
               <h3 class="product-title">Dịch vụ làm đẹp</h3>
               <h4 class="product-price">100.000</h4>
-              <button>Đặt lịch</button>
+              <button class="DatLich">Đặt lịch</button>
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="part-2">
               <h3 class="product-title">Dịch vụ làm đẹp</h3>
               <h4 class="product-price">100.000</h4>
-              <button>Đặt lịch</button>
+              <button class="DatLich">Đặt lịch</button>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
             <div class="part-2">
               <h3 class="product-title">Dịch vụ làm đẹp</h3>
               <h4 class="product-price">100.000</h4>
-              <button>Đặt lịch</button>
+              <button class="DatLich">Đặt lịch</button>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
             <div class="part-2">
               <h3 class="product-title">Dịch vụ làm đẹp</h3>
               <h4 class="product-price">100.000</h4>
-              <button>Đặt lịch</button>
+              <button class="DatLich">Đặt lịch</button>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
             <div class="part-2">
               <h3 class="product-title">Sản phẩm làm đẹp</h3>
               <h4 class="product-price">100.000</h4>
-              <button>Mua</button>
+              <button class="DatLich">Đặt lịch</button>
             </div>
           </div>
         </div>
@@ -108,7 +108,7 @@
             <div class="part-2">
               <h3 class="product-title">Sản phẩm làm đẹp</h3>
               <h4 class="product-price">100.000</h4>
-              <button>Mua</button>
+              <button class="DatLich">Đặt lịch</button>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@
             <div class="part-2">
               <h3 class="product-title">Sản phẩm làm đẹp</h3>
               <h4 class="product-price">100.000</h4>
-              <button>Mua</button>
+              <button class="DatLich">Đặt lịch</button>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@
             <div class="part-2">
               <h3 class="product-title">Sản phẩm làm đẹp</h3>
               <h4 class="product-price">100.000</h4>
-              <button>Mua</button>
+              <button class="DatLich">Đặt lịch</button>
             </div>
           </div>
         </div>
@@ -295,7 +295,7 @@ a:hover {
   background-color: #444444;
   transform: translateY(-50%);
 }
-button {
+.DatLich {
   margin-left: 55%;
   background-color: rgb(111, 191, 226);
   border: none;

@@ -17,7 +17,7 @@
               bulk of the card's content.
             </p>
 
-            <button>Xem chi tiết</button>
+            <button class="ChiTiet">Xem chi tiết</button>
           </div>
         </div>
       </div>
@@ -104,7 +104,5 @@ img {
 h2 {
   text-align: center;
   margin-top: 35px;
-}
-.ChiTiet {
 }
 </style>
