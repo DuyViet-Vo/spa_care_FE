@@ -117,11 +117,15 @@
 <script>
 import axios from "axios";
 import API from "@/api";
+
+const SUCCESS_MESSAGE = "Đăng ký tài khoản thành công!";
+const ERROR_MESSAGE = "Tài khoản đã tồn tại, vui lòng nhập lại!";
+
 export default {
   data() {
     return {
       message: "",
-      name: "", // Add this line
+      name: "", 
       email: "",
       password: "",
       isSuccess: false,
@@ -146,13 +150,12 @@ export default {
           }
         );
 
-        console.log("API Response:", response.data);
-        this.message = "Đăng ký tài khoản thành công!";
+        this.message = SUCCESS_MESSAGE;
         this.isSuccess = true;
       } catch (error) {
         console.error("API Error:", error);
         this.isSuccess = false;
-        this.message = "Tài khoản đã tồn tại, vui lòng nhập lại!";
+        this.message = ERROR_MESSAGE;
       }
     },
   },

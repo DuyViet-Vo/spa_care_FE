@@ -95,37 +95,47 @@ export default {
     };
   },
   methods: {
+    // hàm login
     async login() {
       try {
-        console.log("url: ", API.login);
-        const response = await axios.post(
-          API.login,
-          {
-            email: this.email,
-            password: this.password,
-          },
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const token = response.data.access;
-        const username = this.email;
-        console.log(username);
+        const token = await this.getToken();
 
-        // Lưu token vào Vuex store
+        const username = await this.getUsername(token);
+
         this.$store.dispatch("saveToken", { token, username });
-
-        // Xử lý response ở đây nếu cần
-        // Chuyển hướng hoặc thực hiện các công việc cần thiết sau khi đăng nhập thành công
         this.$router.push("/user/trang-chu");
       } catch (error) {
-        // Xử lý lỗi ở đây nếu có
-        console.error(error);
-        this.error = "Email hoặc mật khẩu chưa chính xác! Vui lòng nhập lại!";
+        this.handleError(error);
       }
+    },
+    // Call api get token
+    async getToken() {
+      const response = await axios.post(
+        API.login,
+        { email: this.email, password: this.password },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data.access;
+    },
+    // call api get username
+    async getUsername(token) {
+      const response = await axios.get(API.get_user, {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      return response.data[0].ho_ten;
+    },
+    // if error show error
+    handleError(error) {
+      console.error(error);
+      this.error = "Email hoặc mật khẩu chưa chính xác! Vui lòng nhập lại!";
     },
   },
 };
