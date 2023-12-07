@@ -1,48 +1,80 @@
 <template>
-  <div>
-    <input type="file" ref="fileInput" @change="handleImageChange" />
-    <button @click="uploadImage">Upload Image</button>
+  <div class="body">
+    <div class="appointment-form">
+      <h2>Đặt Lịch Hẹn</h2>
+      <form>
+        <div class="form-group">
+          <label for="name">Họ và Tên:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="date">Ngày Hẹn:</label>
+          <input type="date" id="date" name="date" required />
+        </div>
+
+        <div class="form-group">
+          <label for="time">Thời Gian Hẹn:</label>
+          <input type="time" id="time" name="time" required />
+        </div>
+
+        <button type="submit" class="datLich">Đặt Lịch</button>
+      </form>
+    </div>
   </div>
 </template>
 <script>
 export default {
-  methods: {
-    handleImageChange() {
-      const fileInput = this.$refs.fileInput;
-      const file = fileInput.files[0];
-
-      if (file) {
-        this.convertImageToBase64(file);
-      }
-    },
-    convertImageToBase64(file) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        const base64String = e.target.result;
-        this.imageBase64 = base64String;
-      };
-
-      reader.readAsDataURL(file);
-    },
-    uploadImage() {
-      // Gửi dữ liệu hình ảnh dưới dạng base64 đến API ở đây
-      // Sử dụng axios hoặc fetch để thực hiện yêu cầu HTTP
-      // Ví dụ sử dụng axios:
-      // axios.post('url_api', { image: this.imageBase64 })
-      //   .then(response => {
-      //     console.log(response.data);
-      //   })
-      //   .catch(error => {
-      //     console.error(error);
-      //   });
-    },
-  },
-  data() {
-    return {
-      imageBase64: null,
-    };
-  },
+  name: "LichHen",
+  components: {},
 };
 </script>
-<style></style>
+<style>
+.body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.appointment-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.datLich {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>
