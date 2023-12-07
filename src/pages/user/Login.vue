@@ -100,9 +100,11 @@ export default {
       try {
         const token = await this.getToken();
 
-        const username = await this.getUsername(token);
-
-        this.$store.dispatch("saveToken", { token, username });
+        const user = await this.getUsername(token);
+        const username = user.ho_ten
+        const user_id = user.id
+       
+        this.$store.dispatch("saveToken", { token, username, user_id});
         this.$router.push("/user/trang-chu");
       } catch (error) {
         this.handleError(error);
@@ -130,7 +132,7 @@ export default {
           Authorization: "Bearer " + token,
         },
       });
-      return response.data[0].ho_ten;
+      return response.data[0];
     },
     // if error show error
     handleError(error) {
