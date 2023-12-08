@@ -8,10 +8,10 @@
 
       <ul class="list-unstyled components">
         <li>
-          <a href="#">Trang Chủ</a>
+          <router-link to="/admin/home">Trang Chủ</router-link>
         </li>
         <li>
-          <a href="#">Lịch Hẹn</a>
+          <router-link to="/admin/lich-hen">Lịch Hẹn</router-link>
         </li>
         <li>
           <a href="#">Dịch Vụ</a>
@@ -27,15 +27,20 @@
 
     <!-- Page Content -->
     <div id="content">
-      <h2>Main Content</h2>
-      <p>
-        <router-view></router-view>
-      </p>
+      <h2>{{ currentRoute }}</h2>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 <script>
-export default {};
+
+export default {
+  computed: {
+    currentRoute() {
+      return this.$route.path;
+    }
+  }
+};
 </script>
 <style>
 body {

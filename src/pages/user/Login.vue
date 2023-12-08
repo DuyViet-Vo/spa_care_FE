@@ -103,8 +103,9 @@ export default {
         const user = await this.getUsername(token);
         const username = user.ho_ten
         const user_id = user.id
-       
-        this.$store.dispatch("saveToken", { token, username, user_id});
+        const quyen = user.quyen
+        console.log(quyen)
+        this.$store.dispatch("saveToken", { token, username, user_id, quyen});
         this.$router.push("/user/trang-chu");
       } catch (error) {
         this.handleError(error);

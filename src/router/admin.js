@@ -6,7 +6,12 @@ const admin = [
       {
         path: "/admin/home",
         name: "home",
-        component: () => import("@/pages/admin/Products.vue"),
+        component: () => import("@/pages/admin/Home.vue"),
+      },
+      {
+        path: "/admin/lich-hen",
+        name: "admin-lich-hen",
+        component: () => import("@/pages/admin/AdminLichHen.vue"),
       },
     ],
   },

@@ -20,7 +20,7 @@ export default {
     },
     isAdmin() {
       // Thay thế bằng logic kiểm tra xem người dùng có quyền admin hay không
-      return this.$store.getters.getUserRole === "admin";
+      return this.$store.getters.getUserRole == 1;
     },
   },
 };
@@ -42,7 +42,7 @@ export default {
         <div class="dropdown">
           <a class="dropbtn">{{ getUsername }}</a>
           <div class="dropdown-content">
-            <router-link to="/user/profile">Cá nhân</router-link>
+            <router-link to="">Cá nhân</router-link>
             <router-link to="/admin/home" v-if="isAdmin()"
               >Admin</router-link
             >
