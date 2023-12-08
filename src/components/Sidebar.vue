@@ -1,95 +1,82 @@
 <template>
-  <div class="container-fluid">
-    <div class="row flex-nowrap">
-      <div
-        class="col-auto col-md-3 col-xl-2 px-sm-2 px-0"
-        style="background-color: rgb(111, 191, 226)"
-      >
-        <div
-          class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
-        >
-          <a
-            href="/"
-            class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-          >
-            <span class="fs-5 d-none d-sm-inline">Menu</span>
-          </a>
-          <ul
-            class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-            id="menu"
-          >
-            <li class="nav-item">
-              <a href="#" class="nav-link align-middle px-0">
-                <i class="fa-solid fa-house"></i>
-                <span class="ms-1 d-none d-sm-inline">Trang chủ</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi-table"></i>
-                <span class="ms-1 d-none d-sm-inline">Lịch hẹn</span></a
-              >
-            </li>
-            <li>
-              <a href="#" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi-table"></i>
-                <span class="ms-1 d-none d-sm-inline">Dịch vụ</span></a
-              >
-            </li>
-            <li>
-              <a href="#" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi-table"></i>
-                <span class="ms-1 d-none d-sm-inline">Sản phẩm</span></a
-              >
-            </li>
-            <li>
-              <a href="#" class="nav-link px-0 align-middle">
-                <i class="fs-4 bi-table"></i>
-                <span class="ms-1 d-none d-sm-inline"
-                  >Nhân viên<noscript></noscript></span
-              ></a>
-            </li>
-          </ul>
-          <hr />
-          <div class="dropdown pb-4">
-            <a
-              href="#"
-              class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-              id="dropdownUser1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                src="https://github.com/mdo.png"
-                alt="hugenerd"
-                width="30"
-                height="30"
-                class="rounded-circle"
-              />
-              <span class="d-none d-sm-inline mx-1">loser</span>
-            </a>
-            <ul
-              class="dropdown-menu dropdown-menu-dark text-small shadow"
-              aria-labelledby="dropdownUser1"
-            >
-              <li><a class="dropdown-item" href="#">New project...</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-          </div>
-        </div>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>SpaCare</h3>
       </div>
-      <div class="col py-3">
+
+      <ul class="list-unstyled components">
+        <li>
+          <a href="#">Trang Chủ</a>
+        </li>
+        <li>
+          <a href="#">Lịch Hẹn</a>
+        </li>
+        <li>
+          <a href="#">Dịch Vụ</a>
+        </li>
+        <li>
+          <a href="#">Sản Phẩm</a>
+        </li>
+        <li>
+          <a href="#">Nhân Viên</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+      <h2>Main Content</h2>
+      <p>
         <router-view></router-view>
-      </div>
+      </p>
     </div>
   </div>
 </template>
 <script>
 export default {};
 </script>
-<style></style>
+<style>
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+#sidebar {
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #343a40;
+  padding-top: 20px;
+}
+
+#sidebar ul.components {
+  padding: 0;
+}
+
+#sidebar ul li {
+  list-style: none;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+#sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+  display: block;
+  border-bottom: 1px solid #4f5b66;
+  transition: background 0.3s;
+}
+
+#sidebar ul li a:hover {
+  background-color: #4f5b66;
+}
+
+#content {
+  margin-left: 250px;
+  padding: 20px;
+}
+</style>

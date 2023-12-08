@@ -18,6 +18,10 @@ export default {
     LogOut() {
       this.$store.dispatch("logout", "");
     },
+    isAdmin() {
+      // Thay thế bằng logic kiểm tra xem người dùng có quyền admin hay không
+      return this.$store.getters.getUserRole === "admin";
+    },
   },
 };
 </script>
@@ -35,8 +39,16 @@ export default {
         <router-link to="/user/register">Đăng ký</router-link>
       </div>
       <div class="header-right" v-else>
-        <a>{{ getUsername }}</a>
-        <a @click="LogOut">Đăng xuất</a>
+        <div class="dropdown">
+          <a class="dropbtn">{{ getUsername }}</a>
+          <div class="dropdown-content">
+            <router-link to="/user/profile">Cá nhân</router-link>
+            <router-link to="/admin/home" v-if="isAdmin()"
+              >Admin</router-link
+            >
+            <a @click="LogOut">Đăng xuất</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +65,7 @@ body {
 }
 
 .header {
-  overflow: hidden;
+  height: 80px ;
   background-color: rgb(111, 191, 226);
   padding: 20px 10px;
 }
@@ -98,5 +110,51 @@ body {
   .header-right {
     float: none;
   }
+}
+.dropdown {
+  display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn {
+  color: black;
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  
+    z-index: 3;
+    left: -40px;
+    top: 53px;
+
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+/* Change color on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 </style>

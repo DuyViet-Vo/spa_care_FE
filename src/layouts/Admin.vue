@@ -1,6 +1,5 @@
 <template>
   <Sidebar></Sidebar>
-  <router-view></router-view>
 </template>
 <script>
 import Sidebar from "@/components/Sidebar.vue";

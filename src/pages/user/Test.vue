@@ -1,80 +1,95 @@
 <template>
-  <div class="body">
-    <div class="appointment-form">
-      <h2>Đặt Lịch Hẹn</h2>
-      <form>
-        <div class="form-group">
-          <label for="name">Họ và Tên:</label>
-          <input type="text" id="name" name="name" required />
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+      <div
+        class="col-auto col-md-3 col-xl-2 px-sm-2 px-0"
+        style="background-color: rgb(111, 191, 226)"
+      >
+        <div
+          class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+          >
+            <span class="fs-5 d-none d-sm-inline">Menu</span>
+          </a>
+          <ul
+            class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+            id="menu"
+          >
+            <li class="nav-item">
+              <a href="#" class="nav-link align-middle px-0">
+                <i class="fa-solid fa-house"></i>
+                <span class="ms-1 d-none d-sm-inline">Trang chủ</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-0 align-middle">
+                <i class="fs-4 bi-table"></i>
+                <span class="ms-1 d-none d-sm-inline">Lịch hẹn</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-link px-0 align-middle">
+                <i class="fs-4 bi-table"></i>
+                <span class="ms-1 d-none d-sm-inline">Dịch vụ</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-link px-0 align-middle">
+                <i class="fs-4 bi-table"></i>
+                <span class="ms-1 d-none d-sm-inline">Sản phẩm</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-link px-0 align-middle">
+                <i class="fs-4 bi-table"></i>
+                <span class="ms-1 d-none d-sm-inline"
+                  >Nhân viên<noscript></noscript></span
+              ></a>
+            </li>
+          </ul>
+          <hr />
+          <div class="dropdown pb-4">
+            <a
+              href="#"
+              class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+              id="dropdownUser1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="https://github.com/mdo.png"
+                alt="hugenerd"
+                width="30"
+                height="30"
+                class="rounded-circle"
+              />
+              <span class="d-none d-sm-inline mx-1">loser</span>
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-dark text-small shadow"
+              aria-labelledby="dropdownUser1"
+            >
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-
-        <div class="form-group">
-          <label for="date">Ngày Hẹn:</label>
-          <input type="date" id="date" name="date" required />
-        </div>
-
-        <div class="form-group">
-          <label for="time">Thời Gian Hẹn:</label>
-          <input type="time" id="time" name="time" required />
-        </div>
-
-        <button type="submit" class="datLich">Đặt Lịch</button>
-      </form>
+      </div>
+      <div class="col py-3">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
 <script>
-export default {
-  name: "LichHen",
-  components: {},
-};
+export default {};
 </script>
-<style>
-.body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.appointment-form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
-
-.datLich {
-  background-color: #3498db;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-</style>
+<style></style>
