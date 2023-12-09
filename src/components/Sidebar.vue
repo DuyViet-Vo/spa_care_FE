@@ -14,20 +14,20 @@
           <router-link to="/admin/lich-hen">Lịch Hẹn</router-link>
         </li>
         <li>
-          <a href="#">Dịch Vụ</a>
+          <router-link to="/admin/dich-vu">Dịch Vụ</router-link>
         </li>
         <li>
-          <a href="#">Sản Phẩm</a>
+          <router-link to="/admin/san-pham">Sản Phẩm</router-link>
         </li>
         <li>
-          <a href="#">Nhân Viên</a>
+          <router-link to="/admin/nhan-vien">Nhân Viên</router-link>
         </li>
       </ul>
     </nav>
 
     <!-- Page Content -->
     <div id="content">
-      <h2>{{ currentRoute }}</h2>
+      <h2 class="pagination justify-content-left">{{ currentRoute }}</h2>
       <router-view></router-view>
     </div>
   </div>

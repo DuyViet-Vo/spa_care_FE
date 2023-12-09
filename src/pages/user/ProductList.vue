@@ -4,7 +4,7 @@
       <div class="row justify-content-center text-center">
         <div class="col-md-8 col-lg-6">
           <div class="header">
-            <h2>Dịch Vụ</h2>
+            <h2 class="pagination justify-content-center">Dịch Vụ</h2>
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@
       <div class="row justify-content-center text-center">
         <div class="col-md-8 col-lg-6">
           <div class="header">
-            <h2>Sản phẩm</h2>
+            <h2 class="pagination justify-content-center">Sản phẩm</h2>
           </div>
         </div>
       </div>

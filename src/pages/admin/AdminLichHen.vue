@@ -1,5 +1,7 @@
 <template>
   <div>
+    <button @click="addAppointment">Thêm lịch hẹn</button>
+
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -13,25 +15,25 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(appointment, index) in appointments" :key="index">
-          <th scope="row">{{ index + 1 }}</th>
-          <td>{{ appointment.customer }}</td>
-          <td>{{ appointment.employee }}</td>
+        <tr v-for="(appointment, id) in appointments" :key="id">
+          <th scope="row">{{ id + 1 }}</th>
+          <td>{{ appointment.khach_hanh.ho_ten }}</td>
+          <td>{{ appointment.nhan_vien?.ho_ten }}</td>
           <td>
             <ul>
               <li
-                v-for="(service, serviceIndex) in appointment.services"
+                v-for="(service, serviceIndex) in appointment.chi_tiet_lich_hen"
                 :key="serviceIndex"
               >
-                {{ service }}
+                {{ service.dich_vu.ten_dich_vu }}
               </li>
             </ul>
           </td>
-          <td>{{ appointment.appointmentTime }}</td>
-          <td>{{ appointment.status }}</td>
+          <td>{{ formatDateTime(appointment.thoi_gian_hen) }}</td>
+          <td>{{ appointment.trang_thai }}</td>
           <td>
             <button @click="approveAppointment(index)">Duyệt</button>
-            <button @click="viewDetails(index)">Xem chi tiết</button>
+            <button @click="viewDetails(appointment.id)">Xem chi tiết</button>
           </td>
         </tr>
       </tbody>
@@ -40,41 +42,56 @@
 </template>
 
 <script>
+import axios from "axios";
+import API from "@/api";
+
 export default {
   data() {
     return {
       appointments: [],
     };
   },
-  created() {
-    // Gọi API để lấy dữ liệu và đổ vào appointments
-    this.fetchAppointments();
+  async created() {
+    try {
+      await this.fetchLichHen();
+    } catch (error) {
+      console.error("Lỗi trong hook created:", error);
+    }
   },
   methods: {
-    fetchAppointments() {
-      // Gọi API ở đây và sau đó cập nhật giá trị của appointments
-      // Ví dụ giả định:
-      // axios.get('url/api/appointments').then(response => {
-      //   this.appointments = response.data;
-      // });
-
-      // Một ví dụ giả định với dữ liệu cứng
-      this.appointments = [
-        {
-          customer: "Viẹt",
-          employee: "",
-          services: ["1111", "2222"],
-          appointmentTime: "10h20",
-          status: "chưa duyệt",
-        },
-        // Các bản ghi khác nếu có
-      ];
+    async fetchLichHen() {
+      try {
+        const token = await this.$store.getters.getToken;
+        const headers = {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+        const response = await axios.get(API.get_lich_hen, {
+          headers,
+        });
+        console.log("lich hen: ", response.data.results);
+        this.appointments = response.data.results;
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
     },
     approveAppointment(index) {
       // Xử lý khi bấm nút Duyệt
     },
     viewDetails(index) {
       // Xử lý khi bấm nút Xem chi tiết
+    },
+    formatDateTime(dateTimeString) {
+      const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      };
+
+      const date = new Date(dateTimeString);
+      return date.toLocaleString("en-US", options).replace(/,/g, " ");
     },
   },
 };
