@@ -139,7 +139,7 @@ export default {
           {
             password: this.password,
             email: this.email,
-            quyen: 1,
+            quyen: 5,
             ho_ten: this.name,
           },
           {

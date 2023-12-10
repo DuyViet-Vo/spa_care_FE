@@ -1,6 +1,5 @@
 <template>
     <div>
-      <button @click="addAppointment">Thêm dịch vụ</button>
   
       <table class="table table-bordered">
         <thead>

@@ -6,7 +6,7 @@
       <thead>
         <tr>
           <th scope="col">STT</th>
-          <th scope="col">Hình ảnh </th>
+          <th scope="col">Hình ảnh</th>
           <th scope="col">Tên dịch vụ</th>
           <th scope="col">Mô tả</th>
           <th scope="col">Giá</th>
@@ -16,17 +16,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td></td>
-          <td>Lấy nhân mụn</td>
-          <td>lấy hết nhân mụn</td>
-          <td>1000</td>
-          <td>1</td>
-          <td>Chăm sóc Da</td>
+        <tr v-for="(appointment, id) in appointments" :key="id">
+          <th scope="row">{{ id + 1 }}</th>
           <td>
-            <button>Sửa</button><button>Xoá</button>
+            <div class="div-image">
+              <img
+                class="img-fluid"
+                :src="appointment.hinh_anh"
+                alt="Uploaded Image"
+              />
+            </div>
           </td>
+          <td>{{ appointment.ten_dich_vu }}</td>
+          <td>{{ appointment.mo_ta }}</td>
+          <td>{{ appointment.gia }}</td>
+          <td>{{ appointment.thoi_gian_thuc_hien }}</td>
+          <td>{{ appointment.danh_muc.ten_danh_muc }}</td>
+          <td><button>Sửa</button><button>Xoá</button></td>
         </tr>
       </tbody>
     </table>
@@ -53,10 +59,24 @@ export default {
   methods: {
     async fetchDichVu() {
       try {
-      } catch (error) {}
+        const response = await axios.get(API.get_dich_vu, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        this.appointments = response.data.results;
+        console.log("Dịch vụ:", this.services);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.div-image {
+  width: 90px;
+}
+</style>

@@ -3,7 +3,7 @@
     <!-- Sidebar -->
     <nav id="sidebar">
       <div class="sidebar-header">
-        <h3>SpaCare</h3>
+        <img style="height: 90px; width: auto; text-align: center;" src="@/assets/logoSpaCare.jpg" alt="logoSpa">
       </div>
 
       <ul class="list-unstyled components">
