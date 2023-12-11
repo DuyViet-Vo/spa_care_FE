@@ -66,7 +66,6 @@ export default {
         });
 
         this.appointments = response.data.results;
-        console.log("Dịch vụ:", this.services);
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }

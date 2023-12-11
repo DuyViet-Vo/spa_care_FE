@@ -30,10 +30,10 @@
             </ul>
           </td>
           <td>{{ formatDateTime(appointment.thoi_gian_hen) }}</td>
-          <td>{{ appointment.trang_thai }}</td>
+          <td>{{ appointment.trang_thai }}</td> 
           <td>
             <button @click="approveAppointment(index)">Duyệt</button>
-            <button @click="viewDetails(appointment.id)">Xem chi tiết</button>
+            <button @click="viewDetails(appointment.id)">Xoá</button>
           </td>
         </tr>
       </tbody>

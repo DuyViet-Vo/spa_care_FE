@@ -28,7 +28,7 @@ export default {
 
 <template>
   <div class="header">
-    <a href="#default" class="logo">SpaCare</a>
+    <router-link to="/user/trang-chu" class="logo">SpaCare</router-link>
     <div class="header-right">
       <router-link to="/user/trang-chu">Trang Chủ</router-link>
       <router-link to="/user/lich-hen">Đặt lịch</router-link>
