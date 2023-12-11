@@ -7,5 +7,6 @@ const API = {
   get_lich_hen: API_ENDPOINTS.apiUrl + "/lich-hen",
   get_chi_tiet_lich_hen_bulk: API_ENDPOINTS.apiUrl + "/chi-tiet-lich-hen/bulk",
   get_san_pham: API_ENDPOINTS.apiUrl + "/san-pham",
+  get_nhan_vien: API_ENDPOINTS.apiUrl + "/nhan-vien",
 };
 export default API;

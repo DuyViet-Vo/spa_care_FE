@@ -1,7 +1,13 @@
 <template>
   <div>
-    <button @click="addAppointment">Thêm dịch vụ</button>
-
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#exampleModalLong"
+    >
+      Thêm dịch vụ
+    </button>
     <table class="table table-bordered">
       <thead>
         <tr>

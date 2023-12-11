@@ -1,7 +1,14 @@
 <template>
-  <div id="app" class="container mt-5" style="height: auto; width: 500px;">
+  <div id="app" class="container mt-5" style="height: auto; width: 500px">
+    <div
+      v-if="this.$store.getters.getToken == null"
+      class="alert alert-danger"
+      role="alert"
+    >
+      {{ message }}
+    </div>
     <h2 class="mb-4 pagination justify-content-center">Đặt lịch hẹn</h2>
-    
+
     <div v-for="service in services" :key="service.id" class="form-check">
       <input
         type="checkbox"
@@ -10,9 +17,11 @@
         class="form-check-input"
         v-model="service.selected"
       />
-      <label :for="service.id" class="form-check-label">{{ service.ten_dich_vu }}</label>
+      <label :for="service.id" class="form-check-label">{{
+        service.ten_dich_vu
+      }}</label>
     </div>
-    
+
     <div class="form-group mt-4">
       <label for="date">Ngày Hẹn:</label>
       <input
@@ -36,8 +45,10 @@
         required
       />
     </div>
-    
-    <button @click="dangKyLichHen" class="btn btn-primary mt-4 mb-4">Đăng ký lịch hẹn</button>
+
+    <button @click="dangKyLichHen" class="btn btn-primary mt-4 mb-4">
+      Đăng ký lịch hẹn
+    </button>
   </div>
 </template>
 
@@ -52,6 +63,7 @@ export default {
       selectedDate: null,
       selectedTime: null,
       services: [],
+      message: "Vui lòng đăng nhập để đặt lịch!",
     };
   },
   // Gọi api dịch vụ khi load trang

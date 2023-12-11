@@ -10,62 +10,19 @@
       </div>
       <div class="row">
         <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="col-md-6 col-lg-4 col-xl-3" v-for="(service,id) in services" :key="id">
           <div id="product-1" class="single-product">
             <div class="part-1">
-              <img
-                src="https://lavenderstudio.com.vn/wp-content/uploads/2018/11/word-image-12.jpeg"
+              <img style="width: 100%;height: auto;display: block;"
+                :src="service.hinh_anh"
               />
             </div>
             <div class="part-2">
-              <h3 class="product-title">Dịch vụ làm đẹp</h3>
-              <h4 class="product-price">100.000</h4>
-              <button class="DatLich">Đặt lịch</button>
-            </div>
-          </div>
-        </div>
-        <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
-          <div id="product-2" class="single-product">
-            <div class="part-1">
-              <img
-                src="https://lavenderstudio.com.vn/wp-content/uploads/2018/11/word-image-12.jpeg"
-              />
-            </div>
-            <div class="part-2">
-              <h3 class="product-title">Dịch vụ làm đẹp</h3>
-              <h4 class="product-price">100.000</h4>
-              <button class="DatLich">Đặt lịch</button>
-            </div>
-          </div>
-        </div>
-        <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
-          <div id="product-3" class="single-product">
-            <div class="part-1">
-              <img
-                src="https://lavenderstudio.com.vn/wp-content/uploads/2018/11/word-image-12.jpeg"
-              />
-            </div>
-            <div class="part-2">
-              <h3 class="product-title">Dịch vụ làm đẹp</h3>
-              <h4 class="product-price">100.000</h4>
-              <button class="DatLich">Đặt lịch</button>
-            </div>
-          </div>
-        </div>
-        <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
-          <div id="product-4" class="single-product">
-            <div class="part-1">
-              <img
-                src="https://lavenderstudio.com.vn/wp-content/uploads/2018/11/word-image-12.jpeg"
-              />
-            </div>
-            <div class="part-2">
-              <h3 class="product-title">Dịch vụ làm đẹp</h3>
-              <h4 class="product-price">100.000</h4>
-              <button class="DatLich">Đặt lịch</button>
+              <h3 class="product-title">{{ service.ten_dich_vu }}</h3>
+              <h4 class="product-price">{{ service.gia }}</h4>
+              <router-link to="/user/lich-hen" class="DatLich"
+                >Đặt lịch</router-link
+              >
             </div>
           </div>
         </div>
@@ -83,62 +40,17 @@
       </div>
       <div class="row">
         <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="col-md-6 col-lg-4 col-xl-3" v-for="(product,id ) in products" :key="id">
           <div id="product-1" class="single-product">
             <div class="part-1">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz48pSymgUnON5PWLNyizwtqb2cJpFhATynA&usqp=CAU"
+              <img style="width: 100%;height: auto;display: block;"
+                :src="product.hinh_anh"
               />
             </div>
             <div class="part-2">
-              <h3 class="product-title">Sản phẩm làm đẹp</h3>
-              <h4 class="product-price">100.000</h4>
-              <button class="DatLich">Đặt lịch</button>
-            </div>
-          </div>
-        </div>
-        <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
-          <div id="product-2" class="single-product">
-            <div class="part-1">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz48pSymgUnON5PWLNyizwtqb2cJpFhATynA&usqp=CAU"
-              />
-            </div>
-            <div class="part-2">
-              <h3 class="product-title">Sản phẩm làm đẹp</h3>
-              <h4 class="product-price">100.000</h4>
-              <button class="DatLich">Đặt lịch</button>
-            </div>
-          </div>
-        </div>
-        <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
-          <div id="product-3" class="single-product">
-            <div class="part-1">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz48pSymgUnON5PWLNyizwtqb2cJpFhATynA&usqp=CAU"
-              />
-            </div>
-            <div class="part-2">
-              <h3 class="product-title">Sản phẩm làm đẹp</h3>
-              <h4 class="product-price">100.000</h4>
-              <button class="DatLich">Đặt lịch</button>
-            </div>
-          </div>
-        </div>
-        <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3">
-          <div id="product-4" class="single-product">
-            <div class="part-1">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz48pSymgUnON5PWLNyizwtqb2cJpFhATynA&usqp=CAU"
-              />
-            </div>
-            <div class="part-2">
-              <h3 class="product-title">Sản phẩm làm đẹp</h3>
-              <h4 class="product-price">100.000</h4>
-              <button class="DatLich">Đặt lịch</button>
+              <h3 class="product-title">{{ product.ten_san_pham }}</h3>
+              <h4 class="product-price">{{ product.gia }}</h4>
+              <button class="DatLich">Mua</button>
             </div>
           </div>
         </div>
@@ -147,27 +59,52 @@
   </section>
 </template>
 <script>
+import axios from "axios";
+import API from "@/api";
+
 export default {
   data() {
     return {
-      products: [
-        {
-          id: 1,
-          name: "Awesome Product 1",
-          description: "This is an amazing product that you will love!",
-          image:
-            "https://lavenderstudio.com.vn/wp-content/uploads/2018/11/word-image-12.jpeg",
-          price: 19.99,
-        },
-        {
-          id: 2,
-          name: "Awesome Product 2",
-          description: "This is another amazing product that you will love!",
-          image: "https://via.placeholder.com/200x150",
-          price: 29.99,
-        },
-      ],
+      products: [],
+      services: [],
     };
+  },
+  async created() {
+    try {
+      await this.getDichVuData();
+      await this.fetchSanPham();
+    } catch (error) {
+      console.error("Lỗi trong hook created:", error);
+    }
+  },
+  methods: {
+    async getDichVuData() {
+      try {
+        const response = await axios.get(API.get_dich_vu, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        this.services = response.data.results;
+        console.log("Dịch vụ:", this.services);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    },
+    async fetchSanPham() {
+      try {
+        const response = await axios.get(API.get_san_pham, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        this.products = response.data.results;
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    },
   },
 };
 </script>
