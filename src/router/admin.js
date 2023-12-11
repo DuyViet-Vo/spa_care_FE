@@ -28,6 +28,11 @@ const admin = [
         name: "admin-nhan-vien",
         component: () => import("@/pages/admin/AdminNhanVien.vue"),
       },
+      {
+        path: "/admin/khach-hang",
+        name: "admin-khach-hang",
+        component: () => import("@/pages/admin/AdminKhachHang.vue"),
+      },
     ],
   },
 ];

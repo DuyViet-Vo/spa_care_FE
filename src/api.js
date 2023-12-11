@@ -8,5 +8,6 @@ const API = {
   get_chi_tiet_lich_hen_bulk: API_ENDPOINTS.apiUrl + "/chi-tiet-lich-hen/bulk",
   get_san_pham: API_ENDPOINTS.apiUrl + "/san-pham",
   get_nhan_vien: API_ENDPOINTS.apiUrl + "/nhan-vien",
+  get_danh_muc: API_ENDPOINTS.apiUrl + "/danh-muc",
 };
 export default API;

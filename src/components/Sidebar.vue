@@ -3,7 +3,11 @@
     <!-- Sidebar -->
     <nav id="sidebar">
       <div class="sidebar-header">
-        <img style="height: 90px; width: auto; text-align: center;" src="@/assets/logoSpaCare.jpg" alt="logoSpa">
+        <img
+          style="height: 90px; width: auto; text-align: center"
+          src="@/assets/logoSpaCare.jpg"
+          alt="logoSpa"
+        />
       </div>
 
       <ul class="list-unstyled components">
@@ -22,6 +26,12 @@
         <li>
           <router-link to="/admin/nhan-vien">Nhân Viên</router-link>
         </li>
+        <li>
+          <router-link to="/admin/khach-hang">Khách Hàng</router-link>
+        </li>
+        <li>
+          <router-link to="/user/trang-chu">Trở về trang Khách hàng</router-link>
+        </li>
       </ul>
     </nav>
 
@@ -33,13 +43,12 @@
   </div>
 </template>
 <script>
-
 export default {
   computed: {
     currentRoute() {
       return this.$route.path;
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

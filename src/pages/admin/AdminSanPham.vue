@@ -32,7 +32,10 @@
           <td>{{ appointment.gia }}</td>
           <td>{{ appointment.so_luong }}</td>
           <td>{{ appointment.danh_muc.ten_danh_muc }}</td>
-          <td><button>Sửa</button><button>Xoá</button></td>
+          <td>
+            <button class="btn btn-info btn-sm">Sửa</button>
+            <button class="btn btn-danger btn-sm">Xoá</button>
+          </td>
         </tr>
       </tbody>
     </table>
