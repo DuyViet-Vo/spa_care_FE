@@ -1,21 +1,25 @@
 <template>
-  <div id="app">
-    <h2>Đặt lịch hẹn</h2>
-    <div v-for="service in services" :key="service.id">
+  <div id="app" class="container mt-5" style="height: auto; width: 500px;">
+    <h2 class="mb-4 pagination justify-content-center">Đặt lịch hẹn</h2>
+    
+    <div v-for="service in services" :key="service.id" class="form-check">
       <input
         type="checkbox"
         :id="service.id"
         :value="service.id"
+        class="form-check-input"
         v-model="service.selected"
       />
-      <label :for="service.id">{{ service.ten_dich_vu }}</label>
+      <label :for="service.id" class="form-check-label">{{ service.ten_dich_vu }}</label>
     </div>
-    <div class="form-group">
+    
+    <div class="form-group mt-4">
       <label for="date">Ngày Hẹn:</label>
       <input
         type="date"
         id="date"
         name="date"
+        class="form-control"
         v-model="selectedDate"
         required
       />
@@ -27,11 +31,13 @@
         type="time"
         id="time"
         name="time"
+        class="form-control"
         v-model="selectedTime"
         required
       />
     </div>
-    <button @click="dangKyLichHen">Đăng ký lịch hẹn</button>
+    
+    <button @click="dangKyLichHen" class="btn btn-primary mt-4 mb-4">Đăng ký lịch hẹn</button>
   </div>
 </template>
 
