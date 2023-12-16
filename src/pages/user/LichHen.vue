@@ -9,7 +9,7 @@
     </div>
     <h2 class="mb-4 pagination justify-content-center">Đặt lịch hẹn</h2>
 
-    <div v-for="service in services" :key="service.id" class="form-check">
+    <div v-for="service in services" :key="service.id" class="form-check mt-2">
       <input
         type="checkbox"
         :id="service.id"
@@ -17,12 +17,28 @@
         class="form-check-input"
         v-model="service.selected"
       />
+      <img :src="service.hinh_anh" alt="Item Image" style="width: 80px" />
       <label :for="service.id" class="form-check-label">{{
         service.ten_dich_vu
       }}</label>
+      <p>giá: {{ service.gia }}</p>
+    </div>
+    <div>
+      <h3>Nhập Voucher:</h3>
+      <input type="text" v-model="code_uu_dai" />
+    </div>
+    <div>
+      <h3>Tổng tiền:</h3>
+      <input
+        type="text"
+        id="disabledInput"
+        :value="totalAmount"
+        disabled
+        style="float: right"
+      />
     </div>
 
-    <div class="form-group mt-4">
+    <div class="form-group mt-5">
       <label for="date">Ngày Hẹn:</label>
       <input
         type="date"
@@ -56,6 +72,7 @@
 import axios from "axios";
 import API from "@/api";
 import convertToISOString from "@/core/convertToISOString";
+import { findIdByMaUuDai } from "@/core/findIdByMaUuDai";
 
 export default {
   data() {
@@ -64,16 +81,36 @@ export default {
       selectedTime: null,
       services: [],
       message: "Vui lòng đăng nhập để đặt lịch!",
+      uu_dai_data: [],
+      code_uu_dai: "",
+      tong_tien_LH: 0,
     };
+  },
+  //tự động hiển thị tổng tiền
+  computed: {
+    totalAmount() {
+      // Calculate the total amount based on selected services
+      const selectedServices = this.services.filter(
+        (service) => service.selected
+      );
+      const total = selectedServices.reduce(
+        (sum, service) => sum + service.gia,
+        0
+      );
+      this.tong_tien_LH = total
+      return total;
+    },
   },
   // Gọi api dịch vụ khi load trang
   async created() {
     try {
       await this.getDichVuData();
+      await this.getUuDaiData();
     } catch (error) {
       console.error("Lỗi trong hook created:", error);
     }
   },
+
   methods: {
     // API dữ liệu dịch vụ
     async getDichVuData() {
@@ -90,6 +127,23 @@ export default {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
     },
+    // api dữ liệu ưu đãi
+    async getUuDaiData() {
+      try {
+        const token = await this.$store.getters.getToken;
+        const response_uu_dai = await axios.get(API.get_uu_dai, {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        this.uu_dai_data = response_uu_dai.data.results;
+        console.log("Uu Dai:", this.uu_dai_data);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    },
     // Button đăng ký lịch
     async dangKyLichHen() {
       try {
@@ -102,18 +156,18 @@ export default {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         };
-
-        const response = await axios.post(
-          API.get_lich_hen,
-          {
-            thoi_gian_hen: convertToISOString(time),
-            trang_thai: "Chưa Duyệt",
-            khach_hanh: user_id,
-          },
-          {
-            headers,
-          }
-        );
+        const data = {
+          thoi_gian_hen: convertToISOString(time),
+          trang_thai: "Chưa Duyệt",
+          khach_hanh: user_id,
+          tien_coc: this.tong_tien_LH,
+          tong_tien: this.tong_tien_LH,
+          uu_dai: findIdByMaUuDai(this.uu_dai_data, this.code_uu_dai),
+        };
+        console.log("data: ", data);
+        const response = await axios.post(API.get_lich_hen, data, {
+          headers,
+        });
 
         console.log("API Response:", response.data);
 

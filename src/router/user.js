@@ -4,6 +4,11 @@ const user = [
     component: () => import("@/layouts/User.vue"),
     children: [
       {
+        path: "/user/test",
+        name: "test",
+        component: () => import("@/pages/user/Test.vue"),
+      },
+      {
         path: "/user/trang-chu",
         name: "trang-chu",
         component: () => import("@/pages/user/ProductList.vue"),
