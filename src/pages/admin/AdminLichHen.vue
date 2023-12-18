@@ -86,6 +86,8 @@
 <script>
 import axios from "axios";
 import API from "@/api";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/dist/sweetalert2.css";
 
 export default {
   data() {
@@ -181,6 +183,34 @@ export default {
 
       const date = new Date(dateTimeString);
       return date.toLocaleString("en-US", options).replace(/,/g, " ");
+    },
+    async deleteAppointment(id) {
+      const isConfirmed = await Swal.fire({
+        title: "Bạn có chắc chắn không?",
+        text: "Một khi đã xoá, bạn sẽ không thể khôi phục lại lịch hẹn này!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Đồng ý",
+      });
+
+      if (isConfirmed.isConfirmed) {
+        try {
+          const token = await this.$store.getters.getToken;
+          await axios.delete(`${API.get_lich_hen}/${id}`, {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          this.appointments = this.appointments.filter(
+            (appointment) => appointment.id !== id
+          );
+        } catch (error) {
+          console.error("Lỗi khi xoá lịch hẹn:", error);
+        }
+      }
     },
   },
 };
