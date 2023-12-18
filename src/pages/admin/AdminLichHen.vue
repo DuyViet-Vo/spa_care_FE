@@ -1,7 +1,5 @@
 <template>
   <div>
-    <button @click="addAppointment">Thêm lịch hẹn</button>
-
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -10,6 +8,8 @@
           <th scope="col">Nhân viên</th>
           <th scope="col">Dịch vụ</th>
           <th scope="col">Thời giạn hẹn</th>
+          <th scope="col">Tiền cọc</th>
+          <th scope="col">Tổng tiền</th>
           <th scope="col">Trạng thái</th>
           <th scope="col">Lựa chọn</th>
         </tr>
@@ -30,17 +30,16 @@
             </ul>
           </td>
           <td>{{ formatDateTime(appointment.thoi_gian_hen) }}</td>
+          <td>{{ appointment.tien_coc }}</td>
+          <td>{{ appointment.tong_tien }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>
-            <button
-              @click="approveAppointment(index)"
-              class="btn btn-info btn-sm"
-            >
+            <button class="btn btn-info btn-sm" @click="openModal(appointment)">
               Duyệt
             </button>
             <button
-              @click="viewDetails(appointment.id)"
               class="btn btn-danger btn-sm"
+              @click="deleteAppointment(appointment.id)"
             >
               Xoá
             </button>
@@ -48,6 +47,39 @@
         </tr>
       </tbody>
     </table>
+    <!-- Sử dụng modalAppointment để hiển thị modal cụ thể -->
+    <div class="modal" v-if="showModal">
+      <div class="modal-content">
+        <h2 class="text-center">Duyệt lịch hẹn</h2>
+        <label for="category" class="mt-4">Chọn nhân viên: </label>
+        <select id="category" v-model="nhan_vien">
+          <option
+            v-for="(nhan_vien, index) in list_nhan_vien"
+            :key="index"
+            :value="nhan_vien.id"
+          >
+            {{ nhan_vien.ho_ten }}
+          </option>
+        </select>
+        <div class="mt-4">
+          <button
+            type="button"
+            class="btn btn-primary mr-3"
+            @click="duyetLichHen(modalAppointment.id)"
+          >
+            Duyệt
+          </button>
+          <button
+            @click="showModal = false"
+            type="button"
+            class="btn btn-danger"
+            style="margin-left: 30px"
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -59,16 +91,69 @@ export default {
   data() {
     return {
       appointments: [],
+      showModal: false,
+      modalAppointment: null,
+      nhan_vien: null,
+      list_nhan_vien: [],
     };
   },
+
   async created() {
     try {
       await this.fetchLichHen();
+      await this.fetchNhanVien();
     } catch (error) {
       console.error("Lỗi trong hook created:", error);
     }
   },
   methods: {
+    openModal(appointment) {
+      console.log("có lấy đc id", appointment);
+      if (appointment) {
+        this.modalAppointment = appointment;
+        this.showModal = true;
+      }
+    },
+    async duyetLichHen(id) {
+      try {
+        console.log("nhan vien: ", this.nhan_vien);
+        const token = await this.$store.getters.getToken;
+        const requestData = {
+          trang_thai: "Đã Duyệt",
+          nhan_vien: this.nhan_vien,
+        };
+        const response_duyet = await axios.patch(
+          API.get_lich_hen + "/" + id,
+          requestData,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        this.showModal = false;
+        await this.fetchLichHen();
+      } catch (error) {
+        console.log("loi : ", error);
+      }
+    },
+    async fetchNhanVien() {
+      try {
+        const token = await this.$store.getters.getToken;
+        const response_nhan_vien = await axios.get(API.get_nhan_vien, {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("nhan vien: ", response_nhan_vien.data);
+        this.list_nhan_vien = response_nhan_vien.data;
+      } catch (error) {
+        console.log("loi: ", error);
+      }
+    },
     async fetchLichHen() {
       try {
         const token = await this.$store.getters.getToken;
@@ -84,12 +169,6 @@ export default {
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
-    },
-    approveAppointment(index) {
-      // Xử lý khi bấm nút Duyệt
-    },
-    viewDetails(index) {
-      // Xử lý khi bấm nút Xem chi tiết
     },
     formatDateTime(dateTimeString) {
       const options = {
@@ -107,4 +186,24 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+}
+</style>
