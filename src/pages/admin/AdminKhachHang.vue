@@ -44,20 +44,23 @@ export default {
   },
   async created() {
     try {
-      await this.fetchNhanVien();
+      await this.fetchUserList();
     } catch (error) {
       console.error("Lỗi trong hook created:", error);
     }
   },
   methods: {
-    async fetchNhanVien() {
+    async fetchUserList() {
       try {
         const token = await this.$store.getters.getToken;
         const headers = {
           accept: "application/json",
           Authorization: `Bearer ${token}`,
         };
-        const response = await axios.get(API.get_nhan_vien, {
+        const response = await axios.get(API.get_list_user, {
+          params: {
+            quyen: 5,
+          },
           headers,
         });
         console.log("Nhan vien: ", response.data);

@@ -9,6 +9,7 @@ const API = {
   get_san_pham: API_ENDPOINTS.apiUrl + "/san-pham",
   get_nhan_vien: API_ENDPOINTS.apiUrl + "/nhan-vien",
   get_danh_muc: API_ENDPOINTS.apiUrl + "/danh-muc",
-  get_uu_dai: API_ENDPOINTS.apiUrl + "/uu-dai"
+  get_uu_dai: API_ENDPOINTS.apiUrl + "/uu-dai",
+  get_list_user: API_ENDPOINTS.apiUrl + "/list-user",
 };
 export default API;

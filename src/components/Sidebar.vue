@@ -30,6 +30,9 @@
           <router-link to="/admin/khach-hang">Khách Hàng</router-link>
         </li>
         <li>
+          <router-link to="/admin/khach-hang">Mã giảm giá</router-link>
+        </li>
+        <li>
           <router-link to="/user/trang-chu">Trở về trang Khách hàng</router-link>
         </li>
       </ul>
