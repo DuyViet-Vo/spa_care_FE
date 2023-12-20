@@ -1,32 +1,63 @@
 <template>
-  <div>
-    <h2>Chọn các mục</h2>
-    <ul>
-      <li v-for="(item, index) in items" :key="index">
-        <input type="checkbox" v-model="item.checked" />
-        <img :src="item.imageUrl" alt="Item Image" />
-        {{ item.label }}
-      </li>
-    </ul>
-    <p>Đã chọn: {{ selectedItems }}</p>
-  </div>
+    <div class="container mx-auto mt-5">
+      <div class="row" >
+        <div class="col-md-4 mt-4" v-for="(service, id) in services" :key="id">
+          <div class="card" style="width: 18rem; height: 400px">
+            <img
+              :src="service.hinh_anh"
+              class="card-img-top"
+              alt="anh dich vu"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ service.ten_dich_vu }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Giá: {{ service.gia }}</h6>
+              <p class="card-text">{{ service.mo_ta }}</p>
+
+              <button>Xem chi tiết</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
+import axios from "axios";
+import API from "@/api";
+
 export default {
+  name: "DichVu",
   data() {
     return {
-      items: [
-        { label: 'Mục 1', imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYQK8bVbO1yuylDuLLloKVbsRnFmC1bDnWaA&usqp=CAU", checked: false },
-        { label: 'Mục 2', imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYQK8bVbO1yuylDuLLloKVbsRnFmC1bDnWaA&usqp=CAU", checked: false },
-        // Thêm các mục khác tương tự ở đây
-      ],
+      services: [],
     };
   },
-  computed: {
-    selectedItems() {
-      return this.items.filter((item) => item.checked).map((item) => item.label);
+  async created() {
+    try {
+      await this.getDichVuData();
+    } catch (error) {
+      console.error("Lỗi trong hook created:", error);
+    }
+  },
+  methods: {
+    async getDichVuData() {
+      try {
+        const response = await axios.get(API.get_dich_vu, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        this.services = response.data.results;
+        console.log("Dịch vụ:", this.services);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
     },
   },
 };
 </script>
+
+<style>
+/* Your styles remain unchanged */
+</style>

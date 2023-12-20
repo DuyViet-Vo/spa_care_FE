@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container mt-5" style="height: auto; width: 500px">
+  <div id="app" class="container mt-5" style="width: 60%">
     <div
       v-if="this.$store.getters.getToken == null"
       class="alert alert-danger"
@@ -7,38 +7,37 @@
     >
       {{ message }}
     </div>
-    <h2 class="mb-4 pagination justify-content-center">Đặt lịch hẹn</h2>
+    <h2 class="mb-4 text-center">Đặt lịch hẹn</h2>
 
-    <div v-for="service in services" :key="service.id" class="form-check mt-2">
-      <input
-        type="checkbox"
-        :id="service.id"
-        :value="service.id"
-        class="form-check-input"
-        v-model="service.selected"
-      />
-      <img :src="service.hinh_anh" alt="Item Image" style="width: 80px" />
-      <label :for="service.id" class="form-check-label">{{
-        service.ten_dich_vu
-      }}</label>
-      <p>giá: {{ service.gia }}</p>
-    </div>
-    <div>
-      <h3>Nhập Voucher:</h3>
-      <input type="text" v-model="code_uu_dai" />
-    </div>
-    <div>
-      <h3>Tổng tiền:</h3>
-      <input
-        type="text"
-        id="disabledInput"
-        :value="totalAmount"
-        disabled
-        style="float: right"
-      />
+    <div class="row">
+      <div v-for="service in services" :key="service.id" class="col-md-3 mt-2">
+        <div class="form-check">
+          <input
+            type="checkbox"
+            :id="service.id"
+            :value="service.id"
+            class="form-check-input"
+            v-model="service.selected"
+          />
+          <label :for="service.id" class="form-check-label">
+            <img
+              :src="service.hinh_anh"
+              alt="Item Image"
+              class="img-thumbnail"
+            />
+            <b>{{ service.ten_dich_vu }}</b>
+            <br />
+            <span class="text-muted"
+              >Giá: <b>{{ formatPrice(service.gia) }}</b> VND</span
+            >
+            <br />
+            <span>Mô tả: {{ service.mo_ta }} </span>
+          </label>
+        </div>
+      </div>
     </div>
 
-    <div class="form-group mt-5">
+    <div class="form-group mt-4">
       <label for="date">Ngày Hẹn:</label>
       <input
         type="date"
@@ -46,6 +45,7 @@
         name="date"
         class="form-control"
         v-model="selectedDate"
+        :min="currentDate"
         required
       />
     </div>
@@ -59,6 +59,22 @@
         class="form-control"
         v-model="selectedTime"
         required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="voucher">Nhập Voucher:</label>
+      <input type="text" v-model="code_uu_dai" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="totalAmount">Tổng tiền:</label>
+      <input
+        type="text"
+        id="totalAmount"
+        :value="totalAmount"
+        disabled
+        class="form-control"
       />
     </div>
 
@@ -89,7 +105,6 @@ export default {
   //tự động hiển thị tổng tiền
   computed: {
     totalAmount() {
-      // Calculate the total amount based on selected services
       const selectedServices = this.services.filter(
         (service) => service.selected
       );
@@ -97,8 +112,11 @@ export default {
         (sum, service) => sum + service.gia,
         0
       );
-      this.tong_tien_LH = total
-      return total;
+      this.tong_tien_LH = total;
+      return this.formatPrice(total);
+    },
+    currentDate() {
+      return new Date().toISOString().split("T")[0];
     },
   },
   // Gọi api dịch vụ khi load trang
@@ -192,6 +210,11 @@ export default {
     },
     async showSelectedDichVu() {
       return this.services.filter((service) => service.selected);
+    },
+
+    formatPrice(price) {
+      // Sử dụng hàm toLocaleString để định dạng giá
+      return price.toLocaleString("vi-VN");
     },
   },
 };
