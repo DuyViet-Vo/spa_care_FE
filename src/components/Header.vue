@@ -19,8 +19,16 @@ export default {
       this.$store.dispatch("logout", "");
     },
     isAdmin() {
-      // Thay thế bằng logic kiểm tra xem người dùng có quyền admin hay không
       return this.$store.getters.getUserRole == 1;
+    },
+    isLeTan() {
+      return this.$store.getters.getUserRole == 3;
+    },
+    isNhanVien() {
+      return this.$store.getters.getUserRole == 2;
+    },
+    isKhachHang() {
+      return this.$store.getters.getUserRole == 5;
     },
   },
 };
@@ -43,8 +51,13 @@ export default {
           <a class="dropbtn">{{ getUsername }}</a>
           <div class="dropdown-content">
             <router-link to="">Cá nhân</router-link>
-            <router-link to="/admin/home" v-if="isAdmin()"
-              >Admin</router-link
+            <router-link to="/admin/home" v-if="isAdmin()">Admin</router-link>
+            <router-link to="/admin/home" v-if="isLeTan()">Lễ tân</router-link>
+            <router-link to="/admin/home" v-if="isNhanVien()"
+              >Nhân viên</router-link
+            >
+            <router-link to="/user/chi_tiet_lich_hen" v-if="isKhachHang()"
+              >Lịch hẹn của bạn</router-link
             >
             <a @click="LogOut">Đăng xuất</a>
           </div>
@@ -65,7 +78,7 @@ body {
 }
 
 .header {
-  height: 80px ;
+  height: 80px;
   background-color: rgb(111, 191, 226);
   padding: 20px 10px;
 }
@@ -132,11 +145,10 @@ body {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  
-    z-index: 3;
-    left: -40px;
-    top: 53px;
 
+  z-index: 3;
+  left: -40px;
+  top: 53px;
 }
 
 /* Links inside the dropdown */

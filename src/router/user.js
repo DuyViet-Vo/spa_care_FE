@@ -38,6 +38,11 @@ const user = [
         name: "dich-vu",
         component: () => import("@/pages/user/DichVu.vue"),
       },
+      {
+        path: "/user/chi_tiet_lich_hen",
+        name: "chi-tiet-lich-hen",
+        component: () => import("@/pages/user/ChiTietLichHen.vue"),
+      },
     ],
   },
 ];

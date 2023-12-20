@@ -11,5 +11,6 @@ const API = {
   get_danh_muc: API_ENDPOINTS.apiUrl + "/danh-muc",
   get_uu_dai: API_ENDPOINTS.apiUrl + "/uu-dai",
   get_list_user: API_ENDPOINTS.apiUrl + "/list-user",
+  get_chi_tiet_lich_hen: API_ENDPOINTS.apiUrl + "/chi-tiet-lich-hen",
 };
 export default API;

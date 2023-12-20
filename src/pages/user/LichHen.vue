@@ -177,6 +177,7 @@ export default {
         const requestData = selectedDichVu.map((dichVu) => ({
           dich_vu: dichVu.id,
           lich_hen: id_lich_hen,
+          trang_thai: "chưa hoàn thành",
         }));
 
         const responseChiTiet = await axios.post(
