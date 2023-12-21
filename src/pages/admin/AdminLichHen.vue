@@ -21,6 +21,7 @@
           <th scope="col">Khách hàng</th>
           <th scope="col">Nhân viên</th>
           <th scope="col">Dịch vụ</th>
+          <th scope="col">Trạng thái dịch vụ</th>
           <th scope="col">Thời giạn hẹn</th>
           <th scope="col">Tiền cọc</th>
           <th scope="col">Tổng tiền</th>
@@ -42,6 +43,16 @@
                 {{ service.dich_vu.ten_dich_vu }}
               </li>
             </ul>
+          </td>
+          <td>
+            <tr
+              v-for="(service, serviceIndex) in appointment.chi_tiet_lich_hen"
+              :key="serviceIndex"
+            >
+              {{
+                service.trang_thai
+              }}
+            </tr>
           </td>
           <td>{{ formatDateTime(appointment.thoi_gian_hen) }}</td>
           <td>{{ appointment.tien_coc }}</td>

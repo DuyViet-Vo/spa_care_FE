@@ -52,7 +52,7 @@ export default {
           <div class="dropdown-content">
             <router-link to="">Cá nhân</router-link>
             <router-link to="/admin/home" v-if="isAdmin()">Admin</router-link>
-            <router-link to="/admin/home" v-if="isLeTan()">Lễ tân</router-link>
+            <router-link to="/le-tan/khach-hang" v-if="isLeTan()">Lễ tân</router-link>
             <router-link to="/admin/home" v-if="isNhanVien()"
               >Nhân viên</router-link
             >

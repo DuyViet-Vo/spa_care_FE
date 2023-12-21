@@ -12,13 +12,13 @@
   
         <ul class="list-unstyled components">
           <li>
-            <router-link to="/admin/home">Trang Chủ</router-link>
+            <router-link to="">Trang Chủ</router-link>
           </li>
           <li>
-            <router-link to="/admin/lich-hen">Lịch Hẹn</router-link>
+            <router-link to="/le-tan/khach-hang">Lịch Hẹn</router-link>
           </li>
           <li>
-            <router-link to="/admin/khach-hang">Khách Hàng</router-link>
+            <router-link to="">Khách Hàng</router-link>
           </li>
           <li>
             <router-link to="/user/trang-chu">Trở về trang Khách hàng</router-link>
