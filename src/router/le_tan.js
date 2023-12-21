@@ -1,4 +1,4 @@
-const user = [
+const le_tan = [
     {
       path: "/le-tan",
       component: () => import("@/layouts/LeTan.vue"),
@@ -11,5 +11,5 @@ const user = [
       ],
     },
   ];
-  export default user;
+  export default le_tan;
   

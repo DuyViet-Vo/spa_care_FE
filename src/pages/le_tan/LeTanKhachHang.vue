@@ -19,7 +19,6 @@
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Khách hàng</th>
-          <th scope="col">Nhân viên</th>
           <th scope="col">Dịch vụ</th>
           <th scope="col">Trạng thái dịch vụ</th>
           <th scope="col">Thời giạn hẹn</th>
@@ -33,7 +32,6 @@
         <tr v-for="(appointment, id) in appointments" :key="id">
           <th scope="row">{{ id + 1 }}</th>
           <td>{{ appointment.khach_hanh.ho_ten }}</td>
-          <td>{{ appointment.nhan_vien?.ho_ten }}</td>
           <td>
             <ul>
               <li
