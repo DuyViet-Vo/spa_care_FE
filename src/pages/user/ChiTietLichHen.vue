@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom: 550px">
     <h2 class="text-center mt-4">Lịch hẹn của bạn</h2>
     <table
       class="table table-bordered mt-4 mb-4"

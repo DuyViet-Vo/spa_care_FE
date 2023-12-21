@@ -1,6 +1,20 @@
 <template>
+  <div class="search-container">
+    <input
+      type="text"
+      v-model="searchQuery"
+      placeholder="Nhập tên khách hàng..."
+    />
+    <button
+      class="btn btn-primary"
+      @click="searchAppointments"
+      style="margin-left: 30px"
+    >
+      Tìm kiếm
+    </button>
+  </div>
   <div>
-    <table class="table table-bordered">
+    <table class="table table-bordered mt-4">
       <thead>
         <tr>
           <th scope="col">STT</th>
@@ -97,6 +111,7 @@ export default {
       modalAppointment: null,
       nhan_vien: null,
       list_nhan_vien: [],
+      searchQuery: "",
     };
   },
 
@@ -184,6 +199,7 @@ export default {
       const date = new Date(dateTimeString);
       return date.toLocaleString("en-US", options).replace(/,/g, " ");
     },
+    //gọi api xoá lịch hẹn
     async deleteAppointment(id) {
       const isConfirmed = await Swal.fire({
         title: "Bạn có chắc chắn không?",
@@ -210,6 +226,27 @@ export default {
         } catch (error) {
           console.error("Lỗi khi xoá lịch hẹn:", error);
         }
+      }
+    },
+    // gọi api tìm kiếm lịch hẹn
+    async searchAppointments() {
+      try {
+        const token = await this.$store.getters.getToken;
+        const headers = {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+
+        const response = await axios.get(
+          `${API.get_lich_hen}?search=${this.searchQuery}`,
+          {
+            headers,
+          }
+        );
+
+        this.appointments = response.data.results;
+      } catch (error) {
+        console.error("Lỗi khi tìm kiếm lịch hẹn:", error);
       }
     },
   },

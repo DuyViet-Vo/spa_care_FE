@@ -10,7 +10,7 @@
     <h2 class="mb-4 text-center">Đặt lịch hẹn</h2>
 
     <div class="row">
-      <div v-for="service in services" :key="service.id" class="col-md-3 mt-2">
+      <div v-for="service in services" :key="service.id" class="col-md-3 mt-4">
         <div class="form-check">
           <input
             type="checkbox"
@@ -77,11 +77,15 @@
         class="form-control"
       />
     </div>
-
+    <div v-if="successMessage" class="alert alert-success mt-4" role="alert">
+      {{ successMessage }}
+    </div>
     <button @click="dangKyLichHen" class="btn btn-primary mt-4 mb-4">
       Đăng ký lịch hẹn
     </button>
+    
   </div>
+  
 </template>
 
 <script>
@@ -100,6 +104,7 @@ export default {
       uu_dai_data: [],
       code_uu_dai: "",
       tong_tien_LH: 0,
+      successMessage: "",
     };
   },
   //tự động hiển thị tổng tiền
@@ -204,6 +209,7 @@ export default {
           { headers }
         );
         console.log("API Response chi tiết:", responseChiTiet.data);
+        this.successMessage = "Bạn đã đăng ký lịch hẹn thành công!";
       } catch (error) {
         console.error("Lỗi khi gọi API:", error);
       }
