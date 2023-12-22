@@ -57,8 +57,11 @@
           <td>{{ appointment.tong_tien }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>
-            <button class="btn btn-info btn-sm" @click="openModal(appointment)">
-              Thay đổi giờ hẹn
+            <button
+              class="btn btn-info btn-sm"
+              @click="openDetailPage(appointment)"
+            >
+              Xem chi tiết
             </button>
           </td>
         </tr>
@@ -203,6 +206,13 @@ export default {
       } catch (error) {
         console.error("Lỗi khi tìm kiếm lịch hẹn:", error);
       }
+    },
+    openDetailPage(appointment) {
+      // Sử dụng Vue Router để chuyển hướng đến trang chi tiết
+      this.$router.push({
+        name: "chi_tiet_lich_hen",
+        params: { id: appointment.id },
+      });
     },
   },
 };

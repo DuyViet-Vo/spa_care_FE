@@ -15,10 +15,7 @@
             <router-link to="">Trang Chủ</router-link>
           </li>
           <li>
-            <router-link to="/le-tan/khach-hang">Lịch Hẹn</router-link>
-          </li>
-          <li>
-            <router-link to="">Khách Hàng</router-link>
+            <router-link to="/le-tan/khach-hang">Khách Hàng</router-link>
           </li>
           <li>
             <router-link to="/user/trang-chu">Trở về trang Khách hàng</router-link>
