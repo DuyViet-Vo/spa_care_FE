@@ -8,6 +8,11 @@ const nhan_vien = [
           name: "nv-cong-viec",
           component: () => import("@/pages/nhan_vien/CongViec.vue"),
         },
+        {
+          path: "/nhan-vien/cong-viec-da-hoan-thanh",
+          name: "nv-cong-viec-da-hoan-thanh",
+          component: () => import("@/pages/nhan_vien/CongViecDaLam.vue"),
+        },
       ],
     },
   ];

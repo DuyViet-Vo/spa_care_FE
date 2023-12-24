@@ -5,10 +5,10 @@
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Tên dịch vụ</th>
-          <th scope="col">Thời gian</th>
+          <th scope="col">Thời gian hẹn</th>
+          <th scope="col">Thời gian Đã Thực hiện</th>
           <th scope="col">Trạng thái</th>
           <th scope="col">Ghi chú</th>
-          <th scope="col">Lựa chọn</th>
         </tr>
       </thead>
       <tbody>
@@ -16,16 +16,9 @@
           <th scope="row">{{ id + 1 }}</th>
           <td>{{ appointment.dich_vu.ten_dich_vu }}</td>
           <td>{{ formatDateTime(appointment.lich_hen.thoi_gian_hen) }}</td>
+          <td>{{ formatDateTime(appointment.updated_at) }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>{{ appointment.ghi_chu }}</td>
-          <td>
-            <button
-              class="btn btn-info btn-sm"
-              @click="UpdateChiTiet(appointment.id)"
-            >
-              Đã hoàn thành công việc
-            </button>
-          </td>
         </tr>
       </tbody>
     </table>
@@ -64,7 +57,7 @@ export default {
         const user_id = this.$store.getters.getUserId;
         const token = await this.$store.getters.getToken;
         const params = {
-          trang_thai: "Đang Hoàn Thành",
+          trang_thai: "Đã hoàn thành",
           nhan_vien: user_id,
         };
         const headers = {
@@ -75,35 +68,10 @@ export default {
           API.get_chi_tiet_lich_hen,
           { params, headers }
         );
-        console.log(
-          "response_chi_tiet_lich_hen: ",
-          response_chi_tiet_lich_hen.data.results
-        );
         this.appointments = response_chi_tiet_lich_hen.data.results;
+        console.log("response_chi_tiet_lich_hen: ", response_chi_tiet_lich_hen.data.results);
       } catch (error) {
         console.error("loi: ", error);
-      }
-    },
-    async UpdateChiTiet(id) {
-      try {
-        const token = await this.$store.getters.getToken;
-        const requestData = {
-          trang_thai: "Đã hoàn thành",
-        };
-        const response_chi_tiet = await axios.patch(
-          API.get_chi_tiet_lich_hen + "/" + id,
-          requestData,
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        await this.fetchAppointments();
-      } catch (error) {
-        console.error("loi: ", error)
       }
     },
   },
