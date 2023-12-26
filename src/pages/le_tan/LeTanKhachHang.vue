@@ -1,5 +1,6 @@
 <template>
   <div class="search-container">
+    <h2 style="margin-bottom: 30px;">Khách hàng</h2>
     <input
       type="text"
       v-model="searchQuery"

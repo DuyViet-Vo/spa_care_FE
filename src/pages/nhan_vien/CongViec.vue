@@ -1,6 +1,7 @@
 <template>
+  <h2 style="margin-bottom: 30px;">Công việc</h2>
   <div>
-    <table class="table table-bordered table-responsive mt-4">
+    <table class="table table-bordered table-responsive mt-2">
       <thead>
         <tr>
           <th scope="col">STT</th>

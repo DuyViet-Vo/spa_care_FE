@@ -1,4 +1,5 @@
 <template lang="">
+  <h2 style="margin-bottom: 30px;">Chi tiết lịch hẹn</h2>
   <div>
     <table class="table table-bordered mt-4">
       <thead>
