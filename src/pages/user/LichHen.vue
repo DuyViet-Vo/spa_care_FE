@@ -83,9 +83,8 @@
     <button @click="dangKyLichHen" class="btn btn-primary mt-4 mb-4">
       Đăng ký lịch hẹn
     </button>
-    
+    <PayPalButton />
   </div>
-  
 </template>
 
 <script>
@@ -93,8 +92,13 @@ import axios from "axios";
 import API from "@/api";
 import convertToISOString from "@/core/convertToISOString";
 import { findIdByMaUuDai } from "@/core/findIdByMaUuDai";
+import PayPalButton from '@/pages/user/PayPalButton.vue';
 
 export default {
+  name: 'LichHenUser',
+  components: {
+    PayPalButton
+  },
   data() {
     return {
       selectedDate: null,
