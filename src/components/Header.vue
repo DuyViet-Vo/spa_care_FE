@@ -46,7 +46,7 @@ export default {
         <router-link to="/user/login">Đăng nhập</router-link>
         <router-link to="/user/register">Đăng ký</router-link>
       </div>
-      <div class="header-right" v-else>
+      <div style="margin-right: 30px" class="header-right" v-else>
         <div class="dropdown">
           <a class="dropbtn">{{ getUsername }}</a>
           <div class="dropdown-content">
