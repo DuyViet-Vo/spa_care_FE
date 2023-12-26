@@ -88,11 +88,16 @@
     <!-- Modal content -->
     <div class="modal-content">
       <!-- Add your PayPalButton component here -->
-      <PayPalButton :tong_tien_LH="tong_tien_LH" @payment-successful="handlePaymentSuccess" />
+      <PayPalButton
+        :tong_tien_LH="tong_tien_LH"
+        @payment-successful="handlePaymentSuccess"
+      />
 
       <!-- Close button or other modal content -->
 
-      <button @click="closePaymentModal" class="btn btn-danger">Đóng thanh toán</button>
+      <button @click="closePaymentModal" class="btn btn-danger">
+        Đóng thanh toán
+      </button>
     </div>
   </div>
 </template>
@@ -103,6 +108,8 @@ import API from "@/api";
 import convertToISOString from "@/core/convertToISOString";
 import { findIdByMaUuDai } from "@/core/findIdByMaUuDai";
 import PayPalButton from "@/pages/user/PayPalButton.vue";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/dist/sweetalert2.css";
 
 export default {
   name: "LichHenUser",
@@ -224,7 +231,8 @@ export default {
           { headers }
         );
         console.log("API Response chi tiết:", responseChiTiet.data);
-        this.successMessage = "Bạn đã đăng ký lịch hẹn thành công. Vui lòng chờ Admin duyệt!";
+        this.successMessage =
+          "Bạn đã đăng ký lịch hẹn thành công. Vui lòng chờ Admin duyệt!";
         this.isPaymentModalVisible = false;
       } catch (error) {
         console.error("Lỗi khi gọi API:", error);
@@ -239,15 +247,28 @@ export default {
       return price.toLocaleString("vi-VN");
     },
     showPaymentModal() {
+      const areServicesSelected = this.services.some(
+        (service) => service.selected
+      );
+      const isDateSelected = this.selectedDate !== null;
+      const isTimeSelected = this.selectedTime !== null;
+      if (!areServicesSelected || !isDateSelected || !isTimeSelected) {
+        Swal.fire({
+          icon: "warning",
+          title: "Thông báo",
+          text: "Vui lòng chọn dịch vụ, ngày hẹn và thời gian hẹn trước khi thanh toán.",
+        });
+        return;
+      }
       this.isPaymentModalVisible = true;
     },
+
     closePaymentModal() {
       this.isPaymentModalVisible = false;
     },
     handlePaymentSuccess() {
       this.dangKyLichHen();
     },
-
   },
 };
 </script>

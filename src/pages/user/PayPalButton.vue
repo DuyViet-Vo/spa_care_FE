@@ -4,6 +4,9 @@
 </template>
 
 <script>
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/dist/sweetalert2.css";
+
 export default {
   props: {
     tong_tien_LH: {
@@ -32,10 +35,11 @@ export default {
           },
           onApprove: (data, actions) => {
             return actions.order.capture().then((details) => {
-              alert(
-                "Giao dịch được hoàn thành bởi: " +
-                  details.payer.name.given_name
-              );
+              Swal.fire({
+                icon: "success",
+                title: "Giao dịch được hoàn thành",
+                text: "Bởi: " + details.payer.name.given_name,
+              });
               // Phát sự kiện để thông báo cho thành phần cha về thanh toán thành công
               self.$emit("payment-successful");
             });
