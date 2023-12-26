@@ -109,7 +109,7 @@ export default {
             },
           }
         );
-        console.log("response.data.chi_tiet_lich_hen");
+        console.log("response.data.chi_tiet_lich_hen", response.data.chi_tiet_lich_hen);
         this.appointmentDetail = response.data.chi_tiet_lich_hen;
       } catch (error) {
         console.error("Lỗi khi lấy chi tiết lịch hẹn:", error);

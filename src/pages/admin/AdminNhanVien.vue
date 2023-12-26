@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 style="margin-bottom: 30px;">Nhân viên</h2>
     <table class="table table-bordered">
       <thead>
         <tr>

@@ -28,7 +28,6 @@
   
       <!-- Page Content -->
       <div id="content">
-        <h2 class="pagination justify-content-left">{{ currentRoute }}</h2>
         <router-view></router-view>
       </div>
     </div>

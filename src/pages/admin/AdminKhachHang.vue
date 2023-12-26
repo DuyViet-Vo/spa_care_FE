@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 style="margin-bottom: 30px;">Khách hàng</h2>
     <table class="table table-bordered">
       <thead>
         <tr>

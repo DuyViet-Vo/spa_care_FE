@@ -1,4 +1,5 @@
 <template>
+  <h2 style="margin-bottom: 30px;">Lịch hẹn</h2>
   <div class="search-container">
     <input
       type="text"
@@ -11,6 +12,20 @@
       style="margin-left: 30px"
     >
       Tìm kiếm
+    </button>
+    <select v-model="selectedStatus" style="margin-left: 10px">
+      <option value="">Tất cả</option>
+      <option value="Chưa Duyệt">Chưa Duyệt</option>
+      <option value="Đã Duyệt">Đã Duyệt</option>
+    </select>
+
+    <!-- Add button to trigger API call -->
+    <button
+      class="btn btn-primary"
+      @click="searchAppointmentsByStatus"
+      style="margin-left: 20px"
+    >
+      Tìm kiếm theo trạng thái
     </button>
   </div>
   <div>
@@ -57,7 +72,10 @@
           <td>{{ appointment.tong_tien }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>
-            <button class="btn btn-info btn-sm" @click="duyetLichHen(appointment.id)">
+            <button
+              class="btn btn-info btn-sm"
+              @click="duyetLichHen(appointment.id)"
+            >
               Duyệt
             </button>
             <button
@@ -256,6 +274,29 @@ export default {
         this.appointments = response.data.results;
       } catch (error) {
         console.error("Lỗi khi tìm kiếm lịch hẹn:", error);
+      }
+    },
+
+    async searchAppointmentsByStatus() {
+      try {
+        const token = await this.$store.getters.getToken;
+        const headers = {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+
+        let apiUrl = API.get_lich_hen;
+
+        // Append status parameter if selected
+        if (this.selectedStatus) {
+          apiUrl += `?trang_thai=${encodeURIComponent(this.selectedStatus)}`;
+        }
+
+        const response = await axios.get(apiUrl, { headers });
+
+        this.appointments = response.data.results;
+      } catch (error) {
+        console.error("Lỗi khi tìm kiếm lịch hẹn theo trạng thái:", error);
       }
     },
   },

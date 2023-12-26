@@ -1,8 +1,9 @@
 <template>
   <div>
+    <h2 style="margin-bottom: 30px;">Dịch vụ</h2>
     <button
       type="button"
-      class="btn btn-primary mt-4"
+      class="btn btn-primary mt-2"
       @click="showAddServiceModal = true"
     >
       Thêm dịch vụ
