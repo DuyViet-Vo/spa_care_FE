@@ -1,31 +1,23 @@
 <template>
-  <h2 style="margin-bottom: 30px;">Lịch hẹn</h2>
+  <h2 style="margin-bottom: 30px">Lịch hẹn</h2>
   <div class="search-container">
     <input
       type="text"
       v-model="searchQuery"
       placeholder="Nhập tên khách hàng..."
     />
+    <label style="margin-left: 20px">Trạng thái</label>
+    <select v-model="selectedStatus" style="margin-left: 10px">
+      <option value="">Tất cả</option>
+      <option value="Chưa Duyệt">Chưa Duyệt</option>
+      <option value="Đã Duyệt">Đã Duyệt</option>
+    </select>
     <button
       class="btn btn-primary"
       @click="searchAppointments"
       style="margin-left: 30px"
     >
       Tìm kiếm
-    </button>
-    <select v-model="selectedStatus" style="margin-left: 10px">
-      <option value="">Tất cả</option>
-      <option value="Chưa Duyệt">Chưa Duyệt</option>
-      <option value="Đã Duyệt">Đã Duyệt</option>
-    </select>
-
-    <!-- Add button to trigger API call -->
-    <button
-      class="btn btn-primary"
-      @click="searchAppointmentsByStatus"
-      style="margin-left: 20px"
-    >
-      Tìm kiếm theo trạng thái
     </button>
   </div>
   <div>
@@ -88,39 +80,6 @@
         </tr>
       </tbody>
     </table>
-    <!-- Sử dụng modalAppointment để hiển thị modal cụ thể -->
-    <!-- <div class="modal" v-if="showModal">
-      <div class="modal-content">
-        <h2 class="text-center">Duyệt lịch hẹn</h2>
-        <label for="category" class="mt-4">Chọn nhân viên: </label>
-        <select id="category" v-model="nhan_vien">
-          <option
-            v-for="(nhan_vien, index) in list_nhan_vien"
-            :key="index"
-            :value="nhan_vien.id"
-          >
-            {{ nhan_vien.ho_ten }}
-          </option>
-        </select>
-        <div class="mt-4">
-          <button
-            type="button"
-            class="btn btn-primary mr-3"
-            @click="duyetLichHen(modalAppointment.id)"
-          >
-            Duyệt
-          </button>
-          <button
-            @click="showModal = false"
-            type="button"
-            class="btn btn-danger"
-            style="margin-left: 30px"
-          >
-            Đóng
-          </button>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -264,31 +223,16 @@ export default {
           Authorization: `Bearer ${token}`,
         };
 
-        const response = await axios.get(
-          `${API.get_lich_hen}?search=${this.searchQuery}`,
-          {
-            headers,
-          }
-        );
-
-        this.appointments = response.data.results;
-      } catch (error) {
-        console.error("Lỗi khi tìm kiếm lịch hẹn:", error);
-      }
-    },
-
-    async searchAppointmentsByStatus() {
-      try {
-        const token = await this.$store.getters.getToken;
-        const headers = {
-          accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        };
-
         let apiUrl = API.get_lich_hen;
 
-        // Append status parameter if selected
-        if (this.selectedStatus) {
+        // Check if both searchQuery and selectedStatus are present
+        if (this.searchQuery && this.selectedStatus) {
+          apiUrl += `?search=${
+            this.searchQuery
+          }&trang_thai=${encodeURIComponent(this.selectedStatus)}`;
+        } else if (this.searchQuery) {
+          apiUrl += `?search=${this.searchQuery}`;
+        } else if (this.selectedStatus) {
           apiUrl += `?trang_thai=${encodeURIComponent(this.selectedStatus)}`;
         }
 
@@ -296,7 +240,7 @@ export default {
 
         this.appointments = response.data.results;
       } catch (error) {
-        console.error("Lỗi khi tìm kiếm lịch hẹn theo trạng thái:", error);
+        console.error("Lỗi khi tìm kiếm lịch hẹn:", error);
       }
     },
   },

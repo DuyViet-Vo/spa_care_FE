@@ -4,7 +4,12 @@
     <nav id="sidebar">
       <div class="sidebar-header">
         <img
-          style="height: 90px; width: auto; text-align: center"
+          style="
+            height: 90px;
+            width: auto;
+            margin-left: 40px;
+            margin-bottom: 50px;
+          "
           src="@/assets/logoSpaCare.jpg"
           alt="logoSpa"
         />
@@ -33,7 +38,9 @@
           <router-link to="/admin/khach-hang">Mã giảm giá</router-link>
         </li>
         <li>
-          <router-link to="/user/trang-chu">Trở về trang Khách hàng</router-link>
+          <router-link to="/user/trang-chu"
+            >Trở về trang Khách hàng</router-link
+          >
         </li>
       </ul>
     </nav>
