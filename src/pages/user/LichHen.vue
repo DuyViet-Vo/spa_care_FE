@@ -80,10 +80,20 @@
     <div v-if="successMessage" class="alert alert-success mt-4" role="alert">
       {{ successMessage }}
     </div>
-    <button @click="dangKyLichHen" class="btn btn-primary mt-4 mb-4">
-      Đăng ký lịch hẹn
+    <button class="btn btn-primary mt-4 mb-4" @click="showPaymentModal">
+      Đăng ký và thanh toán
     </button>
-    <PayPalButton />
+  </div>
+  <div v-if="isPaymentModalVisible" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- Add your PayPalButton component here -->
+      <PayPalButton :tong_tien_LH="tong_tien_LH" @payment-successful="handlePaymentSuccess" />
+
+      <!-- Close button or other modal content -->
+
+      <button @click="closePaymentModal" class="btn btn-danger">Đóng thanh toán</button>
+    </div>
   </div>
 </template>
 
@@ -92,12 +102,12 @@ import axios from "axios";
 import API from "@/api";
 import convertToISOString from "@/core/convertToISOString";
 import { findIdByMaUuDai } from "@/core/findIdByMaUuDai";
-import PayPalButton from '@/pages/user/PayPalButton.vue';
+import PayPalButton from "@/pages/user/PayPalButton.vue";
 
 export default {
-  name: 'LichHenUser',
+  name: "LichHenUser",
   components: {
-    PayPalButton
+    PayPalButton,
   },
   data() {
     return {
@@ -109,6 +119,7 @@ export default {
       code_uu_dai: "",
       tong_tien_LH: 0,
       successMessage: "",
+      isPaymentModalVisible: false,
     };
   },
   //tự động hiển thị tổng tiền
@@ -213,7 +224,8 @@ export default {
           { headers }
         );
         console.log("API Response chi tiết:", responseChiTiet.data);
-        this.successMessage = "Bạn đã đăng ký lịch hẹn thành công!";
+        this.successMessage = "Bạn đã đăng ký lịch hẹn thành công. Vui lòng chờ Admin duyệt!";
+        this.isPaymentModalVisible = false;
       } catch (error) {
         console.error("Lỗi khi gọi API:", error);
       }
@@ -226,8 +238,38 @@ export default {
       // Sử dụng hàm toLocaleString để định dạng giá
       return price.toLocaleString("vi-VN");
     },
+    showPaymentModal() {
+      this.isPaymentModalVisible = true;
+    },
+    closePaymentModal() {
+      this.isPaymentModalVisible = false;
+    },
+    handlePaymentSuccess() {
+      this.dangKyLichHen();
+    },
+
   },
 };
 </script>
 
-<style></style>
+<style>
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+}
+</style>
