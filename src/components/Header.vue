@@ -83,6 +83,11 @@ body {
   height: 80px;
   background-color: rgb(111, 191, 226);
   padding: 20px 10px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999999;
 }
 
 .header a {
