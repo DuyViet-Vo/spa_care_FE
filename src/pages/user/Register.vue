@@ -1,6 +1,9 @@
 <template>
   <div>
-    <section class="vh-100" style="background-color: #eee; margin-bottom: 50px">
+    <section
+      class="vh-100"
+      style="background-color: #eee; margin-bottom: 100px"
+    >
       <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-lg-12 col-xl-11">
@@ -9,7 +12,7 @@
                 <div class="row justify-content-center">
                   <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Sign up
+                      Đăng ký
                     </p>
 
                     <form class="mx-1 mx-md-4">
@@ -23,7 +26,21 @@
                             class="form-control"
                           />
                           <label class="form-label" for="form3Example1c"
-                            >Your Name</label
+                            >Tên của bạn</label
+                          >
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input
+                            v-model="sdt"
+                            type="text"
+                            id="form3Example1c"
+                            class="form-control"
+                          />
+                          <label class="form-label" for="form3Example1c"
+                            >Số điện thoại</label
                           >
                         </div>
                       </div>
@@ -38,7 +55,7 @@
                             class="form-control"
                           />
                           <label class="form-label" for="form3Example3c"
-                            >Your Email</label
+                            >Email của bạn</label
                           >
                         </div>
                       </div>
@@ -53,20 +70,9 @@
                             class="form-control"
                           />
                           <label class="form-label" for="form3Example4c"
-                            >Password</label
+                            >Mật khẩu</label
                           >
                         </div>
-                      </div>
-
-                      <div
-                        v-if="message"
-                        :class="{
-                          'alert alert-success': isSuccess,
-                          'alert alert-danger': !isSuccess,
-                        }"
-                        role="alert"
-                      >
-                        {{ message }}
                       </div>
                       <div
                         class="form-check d-flex justify-content-center mb-5"
@@ -78,8 +84,7 @@
                           id="form2Example3c"
                         />
                         <label class="form-check-label" for="form2Example3">
-                          I agree all statements in
-                          <a href="#!">Terms of service</a>
+                          Tôi đồng ý với điều khoản của Dịch vụ
                         </label>
                       </div>
 
@@ -91,7 +96,7 @@
                           class="btn btn-primary btn-lg"
                           @click="registerUser"
                         >
-                          Register
+                          Đăng ký
                         </button>
                       </div>
                     </form>
@@ -117,6 +122,8 @@
 <script>
 import axios from "axios";
 import API from "@/api";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/dist/sweetalert2.css";
 
 const SUCCESS_MESSAGE = "Đăng ký tài khoản thành công!";
 const ERROR_MESSAGE = "Tài khoản đã tồn tại, vui lòng nhập lại!";
@@ -125,9 +132,10 @@ export default {
   data() {
     return {
       message: "",
-      name: "", 
+      name: "",
       email: "",
       password: "",
+      sdt: "",
       isSuccess: false,
     };
   },
@@ -141,6 +149,7 @@ export default {
             email: this.email,
             quyen: 5,
             ho_ten: this.name,
+            sdt: this.sdt,
           },
           {
             headers: {
@@ -150,12 +159,19 @@ export default {
           }
         );
 
-        this.message = SUCCESS_MESSAGE;
-        this.isSuccess = true;
+        // Use SweetAlert to display success message
+        Swal.fire({
+          icon: "success",
+          title: "Đăng ký thành công!",
+          text: SUCCESS_MESSAGE,
+        });
       } catch (error) {
         console.error("API Error:", error);
-        this.isSuccess = false;
-        this.message = ERROR_MESSAGE;
+        Swal.fire({
+          icon: "error",
+          title: "Đăng ký thất bại",
+          text: ERROR_MESSAGE,
+        });
       }
     },
   },
