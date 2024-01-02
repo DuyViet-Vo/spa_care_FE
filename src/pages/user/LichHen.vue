@@ -1,103 +1,109 @@
 <template>
-  <div id="app" class="container mt-5" style="width: 60%">
-    <div
-      v-if="this.$store.getters.getToken == null"
-      class="alert alert-danger"
-      role="alert"
-    >
-      {{ message }}
-    </div>
-    <h2 class="mb-4 text-center">Đặt lịch hẹn</h2>
+  <div style="padding-top: 50px">
+    <div id="app" class="container mt-5" style="width: 60%">
+      <div
+        v-if="this.$store.getters.getToken == null"
+        class="alert alert-danger"
+        role="alert"
+      >
+        {{ message }}
+      </div>
+      <h2 class="mb-4 text-center">Đặt lịch hẹn</h2>
 
-    <div class="row">
-      <div v-for="service in services" :key="service.id" class="col-md-3 mt-4">
-        <div class="form-check">
-          <input
-            type="checkbox"
-            :id="service.id"
-            :value="service.id"
-            class="form-check-input"
-            v-model="service.selected"
-          />
-          <label :for="service.id" class="form-check-label">
-            <img
-              :src="service.hinh_anh"
-              alt="Item Image"
-              class="img-thumbnail"
+      <div class="row">
+        <div
+          v-for="service in services"
+          :key="service.id"
+          class="col-md-3 mt-4"
+        >
+          <div class="form-check">
+            <input
+              type="checkbox"
+              :id="service.id"
+              :value="service.id"
+              class="form-check-input"
+              v-model="service.selected"
             />
-            <b>{{ service.ten_dich_vu }}</b>
-            <br />
-            <span class="text-muted"
-              >Giá: <b>{{ formatPrice(service.gia) }}</b> VND</span
-            >
-            <br />
-            <span>Mô tả: {{ service.mo_ta }} </span>
-          </label>
+            <label :for="service.id" class="form-check-label">
+              <img
+                :src="service.hinh_anh"
+                alt="Item Image"
+                class="img-thumbnail"
+              />
+              <b>{{ service.ten_dich_vu }}</b>
+              <br />
+              <span class="text-muted"
+                >Giá: <b>{{ formatPrice(service.gia) }}</b> VND</span
+              >
+              <br />
+              <span>Mô tả: {{ service.mo_ta }} </span>
+            </label>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group mt-4">
-      <label for="date">Ngày Hẹn:</label>
-      <input
-        type="date"
-        id="date"
-        name="date"
-        class="form-control"
-        v-model="selectedDate"
-        :min="currentDate"
-        required
-      />
-    </div>
+      <div class="form-group mt-4">
+        <label for="date">Ngày Hẹn:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          class="form-control"
+          v-model="selectedDate"
+          :min="currentDate"
+          required
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="time">Thời Gian Hẹn:</label>
-      <input
-        type="time"
-        id="time"
-        name="time"
-        class="form-control"
-        v-model="selectedTime"
-        required
-      />
-    </div>
+      <div class="form-group">
+        <label for="time">Thời Gian Hẹn:</label>
+        <input
+          type="time"
+          id="time"
+          name="time"
+          class="form-control"
+          v-model="selectedTime"
+          required
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="voucher">Nhập Voucher:</label>
-      <input type="text" v-model="code_uu_dai" class="form-control" />
-    </div>
+      <div class="form-group">
+        <label for="voucher">Nhập Voucher:</label>
+        <input type="text" v-model="code_uu_dai" class="form-control" />
+      </div>
 
-    <div class="form-group">
-      <label for="totalAmount">Tổng tiền:</label>
-      <input
-        type="text"
-        id="totalAmount"
-        :value="totalAmount"
-        disabled
-        class="form-control"
-      />
-    </div>
-    <div v-if="successMessage" class="alert alert-success mt-4" role="alert">
-      {{ successMessage }}
-    </div>
-    <button class="btn btn-primary mt-4 mb-4" @click="showPaymentModal">
-      Đăng ký và thanh toán
-    </button>
-  </div>
-  <div v-if="isPaymentModalVisible" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <!-- Add your PayPalButton component here -->
-      <PayPalButton
-        :tong_tien_LH="tong_tien_LH"
-        @payment-successful="handlePaymentSuccess"
-      />
-
-      <!-- Close button or other modal content -->
-
-      <button @click="closePaymentModal" class="btn btn-danger">
-        Đóng thanh toán
+      <div class="form-group">
+        <label for="totalAmount">Tổng tiền:</label>
+        <input
+          type="text"
+          id="totalAmount"
+          :value="totalAmount"
+          disabled
+          class="form-control"
+        />
+      </div>
+      <div v-if="successMessage" class="alert alert-success mt-4" role="alert">
+        {{ successMessage }}
+      </div>
+      <button class="btn btn-primary mt-4 mb-4" @click="showPaymentModal">
+        Đăng ký và thanh toán
       </button>
+    </div>
+    <div v-if="isPaymentModalVisible" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <!-- Add your PayPalButton component here -->
+        <PayPalButton
+          :tong_tien_LH="tong_tien_LH"
+          @payment-successful="handlePaymentSuccess"
+        />
+
+        <!-- Close button or other modal content -->
+
+        <button @click="closePaymentModal" class="btn btn-danger">
+          Đóng thanh toán
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -230,10 +236,22 @@ export default {
           requestData,
           { headers }
         );
+
         console.log("API Response chi tiết:", responseChiTiet.data);
+
         this.successMessage =
           "Bạn đã đăng ký lịch hẹn thành công. Vui lòng chờ Admin duyệt!";
         this.isPaymentModalVisible = false;
+        const send_email = await axios.post(
+          API.get_send_email_lich_hen,
+          {
+            id_lich_hen: id_lich_hen,
+          },
+          {
+            headers,
+          }
+        );
+        console.log("send email: ", send_email);
       } catch (error) {
         console.error("Lỗi khi gọi API:", error);
       }
