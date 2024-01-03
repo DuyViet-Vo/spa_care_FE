@@ -1,241 +1,195 @@
 <template>
-  <section class="section-products">
-    <div class="container">
-      <div class="row justify-content-center text-center">
-        <div class="col-md-8 col-lg-6">
-          <div class="header">
-            <h2 class="pagination justify-content-center">Dịch Vụ</h2>
+  <div>
+    <!-- Carousel Start -->
+    <div
+      id="carouselExampleDark"
+      class="carousel carousel-dark slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+        ></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+          <img
+            src="@/assets/img/carousel-1.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h2>TRUNG TÂM SPA & LÀM ĐẸP</h2>
+            <p>
+              Giúp chị em phụ nữ phục hồi lại làn da căng mướt cùng vẻ đẹp khỏe
+              khoắn tươi mới như thời thanh xuân.
+            </p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <img
+            src="@/assets/img/carousel-2.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h2>TRUNG TÂM SPA & LÀM ĐẸP</h2>
+            <p>Giúp giải toả căng thẳng sau 1 ngày làm việc vất vả.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            src="@/assets/img/carousel-3.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h2>TRUNG TÂM SPA & LÀM ĐẸP</h2>
+            <p>
+              Nỗ lực giúp quý khách hàng cải thiện làn da trẻ trung như em bé.
+            </p>
           </div>
         </div>
       </div>
-      <div class="row">
-        <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3" v-for="(service,id) in services" :key="id">
-          <div id="product-1" class="single-product">
-            <div class="part-1">
-              <img style="width: 100%;height: auto;display: block;"
-                :src="service.hinh_anh"
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleDark"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!-- Carousel End -->
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <div class="col-lg-6 pb-5 pb-lg-0">
+            <img class="img-fluid w-100" src="@/assets/img/about.jpg" alt="" />
+          </div>
+          <div class="col-lg-6">
+            <h6
+              class="d-inline-block text-primary text-uppercase bg-light py-1 px-2"
+            >
+              Giới thiệu
+            </h6>
+            <h1 class="mb-4">
+              Spa tốt nhất của bạn, Trung Tâm Chăm Sóc Da & Sắc Đẹp
+            </h1>
+            <p class="pl-4 border-left border-primary">
+              Chào mừng bạn đến Spa của chúng tôi! Nhân viên giàu kinh nghiệm,
+              tận tâm, vui vẻ, thân thiện. Giá cả phải chăng. Đặt lịch ngay để
+              trải nghiệm sự thư giãn và làm đẹp tuyệt vời!
+            </p>
+            <div class="row pt-3">
+              <div class="col-6">
+                <div class="bg-light text-center p-4">
+                  <h3 class="display-4 text-primary" data-toggle="counter-up">
+                    99
+                  </h3>
+                  <h6 class="text-uppercase">CHUYÊN GIA SPA</h6>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light text-center p-4">
+                  <h3 class="display-4 text-primary" data-toggle="counter-up">
+                    789
+                  </h3>
+                  <h6 class="text-uppercase">KHÁCH HÀNG</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Open Hours Start -->
+    <div class="container-fluid py-5">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-lg-6" style="min-height: 500px">
+            <div class="position-relative h-100">
+              <img
+                class="position-absolute w-100 h-100"
+                src="@/assets/img/opening.jpg"
+                style="object-fit: cover"
               />
             </div>
-            <div class="part-2">
-              <h3 class="product-title">{{ service.ten_dich_vu }}</h3>
-              <h4 class="product-price">{{ service.gia }}</h4>
-              <router-link to="/user/lich-hen" class="DatLich"
-                >Đặt lịch</router-link
+          </div>
+          <div class="col-lg-6 pt-5 pb-lg-5">
+            <div class="hours-text bg-light p-4 p-lg-5 my-lg-5">
+              <h6
+                class="d-inline-block text-primary text-uppercase bg-light py-1 px-2"
               >
+                Giờ Mở Cửa
+              </h6>
+              <h1 class="mb-4">Hãy đến với chúng tôi</h1>
+              <p>
+                Hãy đặt lịch ngay hôm nay để được hòa mình trong không gian sang
+                trọng, dịch vụ chăm sóc tận tâm và giá cả hợp lý. Chúng tôi tự
+                tin rằng bạn sẽ rời khỏi Spa của chúng tôi với tâm trạng thư
+                thái và làn da rạng ngời.
+              </p>
+              <ul class="list-inline">
+                <li class="h6 py-1">
+                  <i class="far fa-circle text-primary mr-3"></i>Thứ 2 – thứ 6 :
+                  9:00 AM - 7:00 PM
+                </li>
+                <li class="h6 py-1">
+                  <i class="far fa-circle text-primary mr-3"></i>Thứ 7 : 9:00 AM
+                  - 6:00 PM
+                </li>
+                <li class="h6 py-1">
+                  <i class="far fa-circle text-primary mr-3"></i>Chủ nhật : 9:00
+                  AM - 12:00 PM
+                </li>
+              </ul>
+              <a href="" class="btn btn-primary mt-2">Dặt Lịch Ngay</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <section class="section-products">
-    <div class="container">
-      <div class="row justify-content-center text-center">
-        <div class="col-md-8 col-lg-6">
-          <div class="header">
-            <h2 class="pagination justify-content-center">Sản phẩm</h2>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <!-- Single Product -->
-        <div class="col-md-6 col-lg-4 col-xl-3" v-for="(product,id ) in products" :key="id">
-          <div id="product-1" class="single-product">
-            <div class="part-1">
-              <img style="width: 100%;height: auto;display: block;"
-                :src="product.hinh_anh"
-              />
-            </div>
-            <div class="part-2">
-              <h3 class="product-title">{{ product.ten_san_pham }}</h3>
-              <h4 class="product-price">{{ product.gia }}</h4>
-              <button class="DatLich">Mua</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Open Hours End -->
+
+
+    
+  </div>
 </template>
+
 <script>
-import axios from "axios";
-import API from "@/api";
-
 export default {
-  data() {
-    return {
-      products: [],
-      services: [],
-    };
-  },
-  async created() {
-    try {
-      await this.getDichVuData();
-      await this.fetchSanPham();
-    } catch (error) {
-      console.error("Lỗi trong hook created:", error);
-    }
-  },
-  methods: {
-    async getDichVuData() {
-      try {
-        const response = await axios.get(API.get_dich_vu, {
-          headers: {
-            Accept: "application/json",
-          },
-        });
-
-        this.services = response.data.results;
-        console.log("Dịch vụ:", this.services);
-      } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu:", error);
-      }
-    },
-    async fetchSanPham() {
-      try {
-        const response = await axios.get(API.get_san_pham, {
-          headers: {
-            Accept: "application/json",
-          },
-        });
-
-        this.products = response.data.results;
-      } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu:", error);
-      }
-    },
-  },
+  // Your component logic here
 };
 </script>
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
-
-body {
-  font-family: "Poppins", sans-serif;
-  color: #444444;
-}
-a,
-a:hover {
-  text-decoration: none;
-  color: inherit;
-}
-
-.section-products {
-  padding: 80px 0 54px;
-}
-
-.section-products .header {
-  margin-bottom: 50px;
-}
-
-.section-products .header h3 {
-  font-size: 1rem;
-  color: #fe302f;
-  font-weight: 500;
-}
-
-.section-products .header h2 {
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: #444444;
-}
-
-.section-products .single-product {
-  margin-bottom: 26px;
-}
-
-.section-products .single-product .part-1 {
-  position: relative;
-  height: 290px;
-  max-height: 290px;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-
-.section-products .single-product .part-1::before {
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  transition: all 0.3s;
-}
-
-.section-products .single-product:hover .part-1::before {
-  transform: scale(1.2, 1.2) rotate(5deg);
-}
-
-.section-products .single-product .part-1 .discount,
-.section-products .single-product .part-1 ul {
-  position: absolute;
-  bottom: -41px;
-  left: 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  opacity: 0;
-  transition: bottom 0.5s, opacity 0.5s;
-}
-
-.section-products .single-product:hover .part-1 ul {
-  bottom: 30px;
-  opacity: 1;
-}
-
-.section-products .single-product .part-1 ul li {
-  display: inline-block;
-  margin-right: 4px;
-}
-
-.section-products .single-product .part-1 ul li a {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  background-color: #ffffff;
-  color: #444444;
-  text-align: center;
-  box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
-  transition: color 0.2s;
-}
-
-.section-products .single-product .part-1 ul li a:hover {
-  color: #fe302f;
-}
-
-.section-products .single-product .part-2 .product-title {
-  font-size: 1rem;
-}
-
-.section-products .single-product .part-2 h4 {
-  display: inline-block;
-  font-size: 1rem;
-}
-
-.section-products .single-product .part-2 .product-old-price {
-  position: relative;
-  padding: 0 7px;
-  margin-right: 2px;
-  opacity: 0.6;
-}
-
-.section-products .single-product .part-2 .product-old-price::after {
-  position: absolute;
-  content: "";
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: #444444;
-  transform: translateY(-50%);
-}
-.DatLich {
-  margin-left: 55%;
-  background-color: rgb(111, 191, 226);
-  border: none;
-  border-radius: 10px;
-}
-</style>
