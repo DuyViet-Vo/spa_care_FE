@@ -36,144 +36,189 @@ export default {
 
 <template>
   <div class="header">
-    <router-link to="/user/trang-chu" class="logo">SpaCare</router-link>
-    <div class="header-right">
-      <router-link to="/user/trang-chu">Trang Chủ</router-link>
-      <router-link to="/user/lich-hen">Đặt lịch</router-link>
-      <router-link to="/user/dich-vu">Dịch vụ</router-link>
-      <router-link to="/user/san-pham">Sản phẩm</router-link>
-      <div class="header-right" v-if="getToken === null">
-        <router-link to="/user/login">Đăng nhập</router-link>
-        <router-link to="/user/register">Đăng ký</router-link>
-      </div>
-      <div style="margin-right: 30px" class="header-right" v-else>
-        <div class="dropdown">
-          <a class="dropbtn">{{ getUsername }}</a>
-          <div class="dropdown-content">
-            <router-link to="">Cá nhân</router-link>
-            <router-link to="/admin/home" v-if="isAdmin()">Admin</router-link>
-            <router-link to="/le-tan/khach-hang" v-if="isLeTan()"
-              >Lễ tân</router-link
-            >
-            <router-link to="/nhan-vien/cong-viec" v-if="isNhanVien()"
-              >Nhân viên</router-link
-            >
-            <router-link to="/user/chi_tiet_lich_hen" v-if="isKhachHang()"
-              >Lịch hẹn của bạn</router-link
-            >
-            <a @click="LogOut">Đăng xuất</a>
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light d-none d-lg-block">
+      <div
+        class="row py-2 px-lg-5"
+        style="background-color: rgba(255, 182, 193, 0.2)"
+      >
+        <div class="col-lg-6 text-left mb-2 mb-lg-0">
+          <div class="d-inline-flex align-items-center">
+            <small><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</small>
+            <small class="px-3">|</small>
+            <small><i class="fa fa-envelope mr-2"></i>info@example.com</small>
+          </div>
+        </div>
+        <div class="col-lg-6 text-right">
+          <div class="d-inline-flex align-items-center" style="float: right">
+            <a class="text-primary px-2" href="">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a class="text-primary px-2" href="">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a class="text-primary px-2" href="">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a class="text-primary px-2" href="">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a class="text-primary pl-2" href="">
+              <i class="fab fa-youtube"></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+      <nav
+        class="navbar navbar-expand-lg bg-white navbar-light py-4 py-lg-0 px-lg-5"
+      >
+        <router-link to="/user/trang-chu" class="navbar-brand ml-lg-3">
+          <h1 class="m-0 text-primary">
+            <span class="text-dark">SPA</span> Care
+          </h1>
+        </router-link>
+        <button
+          type="button"
+          class="navbar-toggler"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-between px-lg-3 py-4"
+          id="navbarCollapse"
+        >
+          <div class="navbar-nav m-auto py-0">
+            <router-link to="/user/trang-chu" class="nav-item nav-link px-3"
+              >Trang Chủ</router-link
+            >
+            <router-link to="/user/dich-vu" class="nav-item nav-link px-3"
+              >Dịch Vụ</router-link
+            >
+            <router-link to="" class="nav-item nav-link px-2"
+              >Giới Thiệu</router-link
+            >
+            <div v-if="getToken === null" style="display: flex; margin-left: 30px ">
+              <router-link to="/user/login" class="nav-item nav-link px-2"
+                >Đăng Nhập</router-link
+              >
+              <router-link to="/user/register" class="nav-item nav-link px-2"
+                >Đăng Ký</router-link
+              >
+            </div>
+
+            <div class="nav-item dropdown px-3" v-else>
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                >{{ getUsername }}</a
+              >
+              <div class="dropdown-menu rounded-0 m-0">
+                <router-link
+                  to="/admin/home"
+                  class="dropdown-item"
+                  v-if="isAdmin()"
+                  >Admin</router-link
+                >
+                <router-link
+                  to="/le-tan/khach-hang"
+                  class="dropdown-item"
+                  v-if="isLeTan()"
+                  >Lễ Tân</router-link
+                >
+                <router-link
+                  to="/nhan-vien/cong-viec"
+                  class="dropdown-item"
+                  v-if="isNhanVien()"
+                  >Nhân viên</router-link
+                >
+                <router-link
+                  to="/user/chi_tiet_lich_hen"
+                  v-if="isKhachHang()"
+                  class="dropdown-item"
+                  >Lịch Hẹn</router-link
+                >
+                <a href="#" class="dropdown-item">Cá nhân</a>
+                <a @click="LogOut" class="dropdown-item">Đăng Xuất</a>
+              </div>
+            </div>
+          </div>
+          <router-link to="/user/lich-hen" class="btn btn-primary d-none d-lg-block">Đặt Lịch</router-link>
+        </div>
+      </nav>
+    </div>
+    <!-- Navbar End -->
   </div>
 </template>
 
-<style scoped>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
+<style>
 .header {
-  height: 80px;
-  background-color: rgb(111, 191, 226);
-  padding: 20px 10px;
-  position: fixed;
+  font-family: "Arial", sans-serif;
+}
+.container-fluid {
   width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 999999;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+/* CSS for Dropdown */
+.navbar-nav .dropdown:hover .dropdown-menu {
+  display: block;
 }
 
-.header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
+.navbar-nav .dropdown:hover .nav-link {
+  color: #007bff; /* Change the color on hover if needed */
+}
+
+/* Optional: Add transition effect for smoother dropdown animation */
+.dropdown-menu {
+  transition: all 0.3s;
+  display: none;
+}
+
+/* Optional: Style for dropdown items */
+.dropdown-menu a {
+  color: #333;
+  padding: 10px 15px;
+  display: block;
   text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-.header a.logo {
-  font-size: 25px;
+.dropdown-menu a:hover {
+  background-color: #f8f9fa; /* Change the background color on hover if needed */
+}
+.btn {
+  display: inline-block;
+  font-size: x-large;
+  color: #f2f2f2;
+  background-color: #f9a392;
+  border-color: #f9a392;
+  padding: 0.375rem 0.75rem;
   font-weight: bold;
 }
-
-.header a:hover {
-  background-color: #ddd;
-  color: black;
+.btn:hover {
+  color: #ffffff;
+  background-color: #f7846e;
+  border-color: #f67a62;
 }
-
-.header a.active {
-  background-color: dodgerblue;
-  color: white;
+.nav-item {
+  font-size: x-large;
+  text-align: center;
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+  font-weight: bold;
 }
-
-.header-right {
-  float: right;
-}
-
-@media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-
-  .header-right {
-    float: none;
-  }
-}
-.dropdown {
-  display: inline-block;
-}
-
-/* Dropdown button */
-.dropbtn {
-  color: black;
-  padding: 12px;
-  font-size: 18px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Dropdown content (hidden by default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-
-  z-index: 3;
-  left: -40px;
-  top: 53px;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  width: 100%;
-}
-
-/* Change color on hover */
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
+.nav-item:hover {
+  color: #f7846e;
 }
 </style>
