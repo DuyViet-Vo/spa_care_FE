@@ -26,9 +26,6 @@
           <router-link to="/admin/dich-vu">Dịch Vụ</router-link>
         </li>
         <li>
-          <router-link to="/admin/san-pham">Sản Phẩm</router-link>
-        </li>
-        <li>
           <router-link to="/admin/nhan-vien">Nhân Viên</router-link>
         </li>
         <li>
@@ -36,6 +33,9 @@
         </li>
         <li>
           <router-link to="/admin/khach-hang">Mã giảm giá</router-link>
+        </li>
+        <li>
+          <router-link to="/admin/san-pham">Sản Phẩm</router-link>
         </li>
         <li>
           <router-link to="/user/trang-chu"

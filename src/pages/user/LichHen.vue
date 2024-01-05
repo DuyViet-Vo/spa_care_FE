@@ -9,7 +9,7 @@
         {{ message }}
       </div>
       <h2 class="mb-4 text-center">Đặt lịch hẹn</h2>
-
+      <h3>Dịch vụ</h3>
       <div class="row">
         <div
           v-for="service in services"
@@ -19,12 +19,12 @@
           <div class="form-check">
             <input
               type="checkbox"
-              :id="service.id"
+              :id="'service_' + service.id"
               :value="service.id"
               class="form-check-input"
               v-model="service.selected"
             />
-            <label :for="service.id" class="form-check-label">
+            <label :for="'service_' + service.id" class="form-check-label">
               <img
                 :src="service.hinh_anh"
                 alt="Item Image"
@@ -37,6 +37,35 @@
               >
               <br />
               <span>Mô tả: {{ service.mo_ta }} </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <br />
+      <h3>Combo</h3>
+      <div class="row">
+        <div v-for="combo in combos" :key="combo.id" class="col-md-3 mt-4">
+          <div class="form-check">
+            <input
+              type="checkbox"
+              :id="'combo_' + combo.id"
+              :value="combo.id"
+              class="form-check-input"
+              v-model="combo.selected"
+            />
+            <label :for="'combo_' + combo.id" class="form-check-label">
+              <img
+                :src="combo.hinh_anh"
+                alt="Item Image"
+                class="img-thumbnail"
+              />
+              <b>{{ combo.ten_combo }}</b>
+              <br />
+              <span class="text-muted"
+                >Giá: <b>{{ formatPrice(combo.gia) }}</b> VND</span
+              >
+              <br />
+              <span>Mô tả: {{ combo.mo_ta }} </span>
             </label>
           </div>
         </div>
@@ -78,7 +107,7 @@
           type="text"
           id="totalAmount"
           :value="totalAmount"
-          disabled
+          :disabled="true"
           class="form-control"
         />
       </div>
@@ -133,6 +162,7 @@ export default {
       tong_tien_LH: 0,
       successMessage: "",
       isPaymentModalVisible: false,
+      combos: [],
     };
   },
   //tự động hiển thị tổng tiền
@@ -141,12 +171,21 @@ export default {
       const selectedServices = this.services.filter(
         (service) => service.selected
       );
-      const total = selectedServices.reduce(
+      const selectedCombos = this.combos.filter((combo) => combo.selected);
+
+      const servicesTotal = selectedServices.reduce(
         (sum, service) => sum + service.gia,
         0
       );
-      this.tong_tien_LH = total;
-      return this.formatPrice(total);
+
+      const combosTotal = selectedCombos.reduce(
+        (sum, combo) => sum + combo.gia,
+        0
+      );
+
+      this.tong_tien_LH = servicesTotal + combosTotal;
+
+      return this.formatPrice(this.tong_tien_LH);
     },
     currentDate() {
       return new Date().toISOString().split("T")[0];
@@ -157,6 +196,7 @@ export default {
     try {
       await this.getDichVuData();
       await this.getUuDaiData();
+      await this.getComboData();
     } catch (error) {
       console.error("Lỗi trong hook created:", error);
     }
@@ -176,6 +216,19 @@ export default {
         console.log("Dịch vụ:", this.services);
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    },
+    // Api du lieu combo
+    async getComboData() {
+      try {
+        const response_combo = await axios.get(API.get_combo, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        this.combos = response_combo.data.results;
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu combo:", error);
       }
     },
     // api dữ liệu ưu đãi

@@ -104,7 +104,10 @@ export default {
             <router-link to="" class="nav-item nav-link px-2"
               >Giới Thiệu</router-link
             >
-            <div v-if="getToken === null" style="display: flex; margin-left: 30px ">
+            <div
+              v-if="getToken === null"
+              style="display: flex; margin-left: 30px"
+            >
               <router-link to="/user/login" class="nav-item nav-link px-2"
                 >Đăng Nhập</router-link
               >
@@ -150,7 +153,20 @@ export default {
               </div>
             </div>
           </div>
-          <router-link to="/user/lich-hen" class="btn btn-primary d-none d-lg-block">Đặt Lịch</router-link>
+          <router-link
+            to="/user/lich-hen"
+            class="btn btn-primary d-none d-lg-block"
+            style="
+              display: inline-block;
+              font-size: x-large;
+              color: #f2f2f2;
+              background-color: #f9a392;
+              border-color: #f9a392;
+              padding: 0.375rem 0.75rem;
+              font-weight: bold;
+            "
+            >Đặt Lịch</router-link
+          >
         </div>
       </nav>
     </div>
@@ -196,19 +212,9 @@ export default {
 .dropdown-menu a:hover {
   background-color: #f8f9fa; /* Change the background color on hover if needed */
 }
-.btn {
-  display: inline-block;
-  font-size: x-large;
-  color: #f2f2f2;
-  background-color: #f9a392;
-  border-color: #f9a392;
-  padding: 0.375rem 0.75rem;
-  font-weight: bold;
-}
 .btn:hover {
   color: #ffffff;
   background-color: #f7846e;
-  border-color: #f67a62;
 }
 .nav-item {
   font-size: x-large;
