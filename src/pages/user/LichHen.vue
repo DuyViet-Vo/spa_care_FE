@@ -1,122 +1,117 @@
 <template>
-  <div style="padding-top: 50px">
-    <div id="app" class="container mt-5" style="width: 60%">
-      <div
-        v-if="this.$store.getters.getToken == null"
-        class="alert alert-danger"
-        role="alert"
-      >
-        {{ message }}
-      </div>
-      <h2 class="mb-4 text-center">Đặt lịch hẹn</h2>
-      <h3>Dịch vụ</h3>
-      <div class="row">
-        <div
-          v-for="service in services"
-          :key="service.id"
-          class="col-md-3 mt-4"
-        >
-          <div class="form-check">
-            <input
-              type="checkbox"
-              :id="'service_' + service.id"
-              :value="service.id"
-              class="form-check-input"
-              v-model="service.selected"
-            />
-            <label :for="'service_' + service.id" class="form-check-label">
-              <img
-                :src="service.hinh_anh"
-                alt="Item Image"
-                class="img-thumbnail"
-              />
-              <b>{{ service.ten_dich_vu }}</b>
-              <br />
-              <span class="text-muted"
-                >Giá: <b>{{ formatPrice(service.gia) }}</b> VND</span
-              >
-              <br />
-              <span>Mô tả: {{ service.mo_ta }} </span>
-            </label>
+  <div style="padding-top: 50px; margin-top: 100px">
+    <div id="app" class="container mt-5" style="width: 90%">
+      <div class="main-datlich">
+        <div style="width: 75%">
+          <h2 class="mb-4 text-center">Đặt lịch hẹn</h2>
+          <h3>Dịch vụ</h3>
+          <div class="row">
+            <div
+              v-for="service in services"
+              :key="service.id"
+              class="col-md-3 mt-4"
+            >
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  :id="'service_' + service.id"
+                  :value="service.id"
+                  class="form-check-input"
+                  v-model="service.selected"
+                />
+                <label :for="'service_' + service.id" class="form-check-label">
+                  <img
+                    :src="service.hinh_anh"
+                    alt="Item Image"
+                    class="img-thumbnail"
+                  />
+                  <b>{{ service.ten_dich_vu }}</b>
+                  <br />
+                  <span class="text-muted"
+                    >Giá: <b>{{ formatPrice(service.gia) }}</b> VND</span
+                  >
+                  <br />
+                  <span>Mô tả: {{ service.mo_ta }} </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <br />
+          <h3>Combo</h3>
+          <div class="row">
+            <div v-for="combo in combos" :key="combo.id" class="col-md-3 mt-4">
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  :id="'combo_' + combo.id"
+                  :value="combo.id"
+                  class="form-check-input"
+                  v-model="combo.selected"
+                />
+                <label :for="'combo_' + combo.id" class="form-check-label">
+                  <img
+                    :src="combo.hinh_anh"
+                    alt="Item Image"
+                    class="img-thumbnail"
+                  />
+                  <b>{{ combo.ten_combo }}</b>
+                  <br />
+                  <span class="text-muted"
+                    >Giá: <b>{{ formatPrice(combo.gia) }}</b> VND</span
+                  >
+                  <br />
+                  <span>Mô tả: {{ combo.mo_ta }} </span>
+                </label>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <br />
-      <h3>Combo</h3>
-      <div class="row">
-        <div v-for="combo in combos" :key="combo.id" class="col-md-3 mt-4">
-          <div class="form-check">
+        <div class="box-datlich">
+          <div class="form-group mt-4">
+            <label for="date">Ngày Hẹn:</label>
             <input
-              type="checkbox"
-              :id="'combo_' + combo.id"
-              :value="combo.id"
-              class="form-check-input"
-              v-model="combo.selected"
+              type="date"
+              id="date"
+              name="date"
+              class="form-control"
+              v-model="selectedDate"
+              :min="currentDate"
+              required
             />
-            <label :for="'combo_' + combo.id" class="form-check-label">
-              <img
-                :src="combo.hinh_anh"
-                alt="Item Image"
-                class="img-thumbnail"
-              />
-              <b>{{ combo.ten_combo }}</b>
-              <br />
-              <span class="text-muted"
-                >Giá: <b>{{ formatPrice(combo.gia) }}</b> VND</span
-              >
-              <br />
-              <span>Mô tả: {{ combo.mo_ta }} </span>
-            </label>
           </div>
+
+          <div class="form-group">
+            <label for="time">Thời Gian Hẹn:</label>
+            <input
+              type="time"
+              id="time"
+              name="time"
+              class="form-control"
+              v-model="selectedTime"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="voucher">Nhập Voucher:</label>
+            <input type="text" v-model="code_uu_dai" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label for="totalAmount">Tổng tiền:</label>
+            <input
+              type="text"
+              id="totalAmount"
+              :value="totalAmount"
+              :disabled="true"
+              class="form-control"
+            />
+          </div>
+          <button class="btn btn-primary mt-4 mb-4" @click="showPaymentModal">
+            Đăng ký và thanh toán
+          </button>
         </div>
       </div>
-
-      <div class="form-group mt-4">
-        <label for="date">Ngày Hẹn:</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          class="form-control"
-          v-model="selectedDate"
-          :min="currentDate"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="time">Thời Gian Hẹn:</label>
-        <input
-          type="time"
-          id="time"
-          name="time"
-          class="form-control"
-          v-model="selectedTime"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="voucher">Nhập Voucher:</label>
-        <input type="text" v-model="code_uu_dai" class="form-control" />
-      </div>
-
-      <div class="form-group">
-        <label for="totalAmount">Tổng tiền:</label>
-        <input
-          type="text"
-          id="totalAmount"
-          :value="totalAmount"
-          :disabled="true"
-          class="form-control"
-        />
-      </div>
-      <div v-if="successMessage" class="alert alert-success mt-4" role="alert">
-        {{ successMessage }}
-      </div>
-      <button class="btn btn-primary mt-4 mb-4" @click="showPaymentModal">
-        Đăng ký và thanh toán
-      </button>
     </div>
     <div v-if="isPaymentModalVisible" class="modal">
       <!-- Modal content -->
@@ -227,6 +222,7 @@ export default {
           },
         });
         this.combos = response_combo.data.results;
+        console.log("combo: ", this.combos)
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu combo:", error);
       }
@@ -363,5 +359,14 @@ export default {
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
+}
+.main-datlich{
+  display: flex;
+  gap: 0 15px;
+}
+.box-datlich{
+  position: fixed ;
+  right: 150px;
+  top: 200px;
 }
 </style>

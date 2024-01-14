@@ -37,8 +37,8 @@ export default {
             return actions.order.capture().then((details) => {
               Swal.fire({
                 icon: "success",
-                title: "Giao dịch được hoàn thành",
-                text: "Bởi: " + details.payer.name.given_name,
+                title: "Cảm ơn bạn đã đặt lịch, Vui lòng chờ Admin duyệt!",
+                text: "Vui lòng chờ Admin duyệt!",
               });
               // Phát sự kiện để thông báo cho thành phần cha về thanh toán thành công
               self.$emit("payment-successful");
