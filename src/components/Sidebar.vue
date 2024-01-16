@@ -26,6 +26,9 @@
           <router-link to="/admin/dich-vu">Dịch Vụ</router-link>
         </li>
         <li>
+          <router-link to="/admin/san-pham">Combo</router-link>
+        </li>
+        <li>
           <router-link to="/admin/nhan-vien">Nhân Viên</router-link>
         </li>
         <li>

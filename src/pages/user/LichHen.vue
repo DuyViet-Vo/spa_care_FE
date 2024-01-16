@@ -222,7 +222,7 @@ export default {
           },
         });
         this.combos = response_combo.data.results;
-        console.log("combo: ", this.combos)
+        console.log("combo: ", this.combos);
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu combo:", error);
       }
@@ -248,6 +248,8 @@ export default {
     async dangKyLichHen() {
       try {
         const selectedDichVu = await this.showSelectedDichVu();
+        const selectedCombos = this.combos.filter((combo) => combo.selected);
+
         const time = this.selectedDate + " " + this.selectedTime;
         const user_id = this.$store.getters.getUserId;
         const token = await this.$store.getters.getToken;
@@ -256,6 +258,7 @@ export default {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         };
+
         const data = {
           thoi_gian_hen: convertToISOString(time),
           trang_thai: "Chưa Duyệt",
@@ -274,12 +277,23 @@ export default {
         const id_lich_hen = response.data.id;
         console.log("ID lịch hẹn: ", id_lich_hen);
 
-        const requestData = selectedDichVu.map((dichVu) => ({
+        const requestDataDichVu = selectedDichVu.map((dichVu) => ({
           dich_vu: dichVu.id,
           lich_hen: id_lich_hen,
           trang_thai: "Chưa Hoàn Thành",
         }));
 
+        const requestDataCombos = selectedCombos.flatMap((combo) =>
+          combo.chi_tiet_combo.map((chiTiet) => ({
+            dich_vu: chiTiet.dich_vu,
+            lich_hen: id_lich_hen,
+            trang_thai: "Chưa Hoàn Thành",
+          }))
+        );
+
+        console.log("mã id của dich vu: ", requestDataCombos);
+        const requestData = requestDataDichVu.concat(requestDataCombos);
+        
         const responseChiTiet = await axios.post(
           API.get_chi_tiet_lich_hen_bulk,
           requestData,
@@ -360,12 +374,12 @@ export default {
   background-color: white;
   padding: 20px;
 }
-.main-datlich{
+.main-datlich {
   display: flex;
   gap: 0 15px;
 }
-.box-datlich{
-  position: fixed ;
+.box-datlich {
+  position: fixed;
   right: 150px;
   top: 200px;
 }

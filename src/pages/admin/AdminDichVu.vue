@@ -187,6 +187,7 @@ export default {
 
         // Xử lý kết quả theo cần thiết
         console.log("Kết quả từ saveDichVu:", result_dich_vu);
+        this.cancelAddService();
         await this.fetchDichVu();
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
