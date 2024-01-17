@@ -141,7 +141,7 @@ export default {
         console.log("nhân vien: ", this.nhan_vien);
         const token = await this.$store.getters.getToken;
         const requestData = {
-          trang_thai: "Đang Hoàn Thành",
+          trang_thai: "Đang Thực Hiện",
           nhan_vien: this.nhan_vien,
           ghi_chu: this.ghi_chu,
         };

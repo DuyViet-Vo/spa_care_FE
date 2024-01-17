@@ -12,7 +12,9 @@ const API = {
   get_uu_dai: API_ENDPOINTS.apiUrl + "/uu-dai",
   get_list_user: API_ENDPOINTS.apiUrl + "/list-user",
   get_chi_tiet_lich_hen: API_ENDPOINTS.apiUrl + "/chi-tiet-lich-hen",
-  get_send_email_lich_hen: API_ENDPOINTS.apiUrl + "/send-email-lich-hen",
-  get_combo: API_ENDPOINTS.apiUrl + "/combo"
+  get_send_email_lich_hen: API_ENDPOINTS.apiUrl + "/send-email/chua-duyet",
+  get_combo: API_ENDPOINTS.apiUrl + "/combo",
+  get_email_duyet: API_ENDPOINTS.apiUrl + "/send-email/da-duyet",
+
 };
 export default API;

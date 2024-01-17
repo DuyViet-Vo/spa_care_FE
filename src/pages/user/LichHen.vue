@@ -280,14 +280,14 @@ export default {
         const requestDataDichVu = selectedDichVu.map((dichVu) => ({
           dich_vu: dichVu.id,
           lich_hen: id_lich_hen,
-          trang_thai: "Chưa Hoàn Thành",
+          trang_thai: "Chưa Thực Hiện",
         }));
 
         const requestDataCombos = selectedCombos.flatMap((combo) =>
           combo.chi_tiet_combo.map((chiTiet) => ({
             dich_vu: chiTiet.dich_vu,
             lich_hen: id_lich_hen,
-            trang_thai: "Chưa Hoàn Thành",
+            trang_thai: "Chưa Thực Hiện",
           }))
         );
 

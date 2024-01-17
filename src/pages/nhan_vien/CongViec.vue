@@ -65,7 +65,7 @@ export default {
         const user_id = this.$store.getters.getUserId;
         const token = await this.$store.getters.getToken;
         const params = {
-          trang_thai: "Đang Hoàn Thành",
+          trang_thai: "Đang Thực Hiện",
           nhan_vien: user_id,
         };
         const headers = {

@@ -136,8 +136,22 @@ export default {
             },
           }
         );
+
         this.showModal = false;
         await this.fetchLichHen();
+        const send_email = await axios.post(
+          API.get_email_duyet,
+          {
+            id_lich_hen: id,
+          },
+          {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
       } catch (error) {
         console.log("loi : ", error);
       }
