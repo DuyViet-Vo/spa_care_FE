@@ -53,7 +53,7 @@
               }}
             </tr>
           </td>
-          <td>{{ formatDateTime(appointment.thoi_gian_hen) }}</td>
+          <td>{{ formatDate(appointment.thoi_gian_hen) }}</td>
           <td>{{ appointment.tien_coc }}</td>
           <td>{{ appointment.tong_tien }}</td>
           <td>{{ appointment.trang_thai }}</td>
@@ -109,6 +109,7 @@ import axios from "axios";
 import API from "@/api";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/dist/sweetalert2.css";
+import {convertDateTimeFormat} from "@/core/convertDateTimeFormat.js"
 
 export default {
   data() {
@@ -172,17 +173,8 @@ export default {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
     },
-    formatDateTime(dateTimeString) {
-      const options = {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-      };
-
-      const date = new Date(dateTimeString);
-      return date.toLocaleString("en-US", options).replace(/,/g, " ");
+    formatDate(dateTimeString) {
+      return convertDateTimeFormat(dateTimeString);
     },
     // gọi api tìm kiếm lịch hẹn
     async searchAppointments() {

@@ -16,7 +16,7 @@
         <tr v-for="(appointment, id) in appointments" :key="id">
           <th scope="row">{{ id + 1 }}</th>
           <td>{{ appointment.dich_vu.ten_dich_vu }}</td>
-          <td>{{ formatDateTime(appointment.lich_hen.thoi_gian_hen) }}</td>
+          <td>{{ formatDate(appointment.lich_hen.thoi_gian_hen) }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>{{ appointment.ghi_chu }}</td>
           <td>
@@ -35,6 +35,7 @@
 <script>
 import axios from "axios";
 import API from "@/api";
+import {convertDateTimeFormat} from "@/core/convertDateTimeFormat.js"
 
 export default {
   data() {
@@ -48,17 +49,8 @@ export default {
   },
 
   methods: {
-    formatDateTime(dateTimeString) {
-      const options = {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-      };
-
-      const date = new Date(dateTimeString);
-      return date.toLocaleString("en-US", options).replace(/,/g, " ");
+    formatDate(dateTimeString) {
+      return convertDateTimeFormat(dateTimeString);
     },
     async fetchAppointments() {
       try {

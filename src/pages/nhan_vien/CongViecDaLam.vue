@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 style="margin-bottom: 30px;">Công việc đã làm</h2>
+    <h2 style="margin-bottom: 30px">Công việc đã làm</h2>
     <table class="table table-bordered table-responsive mt-2">
       <thead>
         <tr>
@@ -16,8 +16,8 @@
         <tr v-for="(appointment, id) in appointments" :key="id">
           <th scope="row">{{ id + 1 }}</th>
           <td>{{ appointment.dich_vu.ten_dich_vu }}</td>
-          <td>{{ formatDateTime(appointment.lich_hen.thoi_gian_hen) }}</td>
-          <td>{{ formatDateTime(appointment.updated_at) }}</td>
+          <td>{{ formatDate(appointment.lich_hen.thoi_gian_hen) }}</td>
+          <td>{{ formatDate(appointment.updated_at) }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>{{ appointment.ghi_chu }}</td>
         </tr>
@@ -28,6 +28,7 @@
 <script>
 import axios from "axios";
 import API from "@/api";
+import { convertDateTimeFormat } from "@/core/convertDateTimeFormat.js";
 
 export default {
   data() {
@@ -41,17 +42,8 @@ export default {
   },
 
   methods: {
-    formatDateTime(dateTimeString) {
-      const options = {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-      };
-
-      const date = new Date(dateTimeString);
-      return date.toLocaleString("en-US", options).replace(/,/g, " ");
+    formatDate(dateTimeString) {
+      return convertDateTimeFormat(dateTimeString);
     },
     async fetchAppointments() {
       try {
@@ -70,7 +62,10 @@ export default {
           { params, headers }
         );
         this.appointments = response_chi_tiet_lich_hen.data.results;
-        console.log("response_chi_tiet_lich_hen: ", response_chi_tiet_lich_hen.data.results);
+        console.log(
+          "response_chi_tiet_lich_hen: ",
+          response_chi_tiet_lich_hen.data.results
+        );
       } catch (error) {
         console.error("loi: ", error);
       }
