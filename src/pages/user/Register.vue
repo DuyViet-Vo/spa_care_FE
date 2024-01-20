@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-top: 100px;">
     <section
       class="vh-100"
       style="background-color: #eee; margin-bottom: 100px"
@@ -12,7 +12,7 @@
                 <div class="row justify-content-center">
                   <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Đăng ký
+                      ĐĂNG KÝ
                     </p>
 
                     <form class="mx-1 mx-md-4">
@@ -31,7 +31,7 @@
                         </div>
                       </div>
                       <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <i class="fas fa-mobile-alt fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input
                             v-model="sdt"

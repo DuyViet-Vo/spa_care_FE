@@ -3,7 +3,7 @@
     <div id="app" class="container mt-5" style="width: 90%">
       <div class="main-datlich">
         <div style="width: 75%">
-          <h2 class="mb-4 text-center">Đặt lịch hẹn</h2>
+          <h2 class="mb-4 text-center">ĐẶT LỊCH HẸN</h2>
           <h3>Dịch vụ</h3>
           <div class="row">
             <div
@@ -293,7 +293,7 @@ export default {
 
         console.log("mã id của dich vu: ", requestDataCombos);
         const requestData = requestDataDichVu.concat(requestDataCombos);
-        
+
         const responseChiTiet = await axios.post(
           API.get_chi_tiet_lich_hen_bulk,
           requestData,
@@ -331,16 +331,39 @@ export default {
       const areServicesSelected = this.services.some(
         (service) => service.selected
       );
+      const areCombosSelected = this.combos.some((combo) => combo.selected);
       const isDateSelected = this.selectedDate !== null;
       const isTimeSelected = this.selectedTime !== null;
-      if (!areServicesSelected || !isDateSelected || !isTimeSelected) {
+      const token = this.$store.getters.getToken;
+      if (!token) {
         Swal.fire({
           icon: "warning",
           title: "Thông báo",
-          text: "Vui lòng chọn dịch vụ, ngày hẹn và thời gian hẹn trước khi thanh toán.",
+          text: "Vui lòng đăng nhập để đặt lịch và thanh toán.",
+        });
+        // Redirect to the login page or perform any other action
+        // Example: this.$router.push("/login");
+        return;
+      }
+
+      if (!areServicesSelected && !areCombosSelected) {
+        Swal.fire({
+          icon: "warning",
+          title: "Thông báo",
+          text: "Vui lòng chọn ít nhất một dịch vụ hoặc combo trước khi thanh toán.",
         });
         return;
       }
+
+      if (!isDateSelected || !isTimeSelected) {
+        Swal.fire({
+          icon: "warning",
+          title: "Thông báo",
+          text: "Vui lòng chọn ngày hẹn và thời gian hẹn trước khi thanh toán.",
+        });
+        return;
+      }
+
       this.isPaymentModalVisible = true;
     },
 

@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
-    <section class="vh-100">
+  <div class="container" style="margin-top: 250px;">
+    <h2 style="text-align: center;">ĐĂNG NHẬP</h2>
+    <section class="" style="margin-top: 80px; margin-bottom: 150px;">
       <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-md-9 col-lg-6 col-xl-5">
