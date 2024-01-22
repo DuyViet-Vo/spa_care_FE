@@ -20,10 +20,9 @@
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Khách hàng</th>
+          <th scope="col">Thời giạn hẹn</th>
           <th scope="col">Dịch vụ</th>
           <th scope="col">Trạng thái dịch vụ</th>
-          <th scope="col">Thời giạn hẹn</th>
-          <th scope="col">Tiền cọc</th>
           <th scope="col">Tổng tiền</th>
           <th scope="col">Trạng thái</th>
           <th scope="col">Lựa chọn</th>
@@ -33,6 +32,7 @@
         <tr v-for="(appointment, id) in appointments" :key="id">
           <th scope="row">{{ id + 1 }}</th>
           <td>{{ appointment.khach_hanh.ho_ten }}</td>
+          <td>{{ formatDate(appointment.thoi_gian_hen) }}</td>
           <td>
             <ul>
               <li
@@ -53,8 +53,7 @@
               }}
             </tr>
           </td>
-          <td>{{ formatDate(appointment.thoi_gian_hen) }}</td>
-          <td>{{ appointment.tien_coc }}</td>
+          
           <td>{{ appointment.tong_tien }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>

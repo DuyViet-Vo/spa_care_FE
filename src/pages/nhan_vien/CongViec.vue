@@ -1,5 +1,5 @@
 <template>
-  <h2 style="margin-bottom: 30px;">Công việc</h2>
+  <h2 style="margin-bottom: 30px;">CÔNG VIỆC</h2>
   <div>
     <table class="table table-bordered table-responsive mt-2">
       <thead>

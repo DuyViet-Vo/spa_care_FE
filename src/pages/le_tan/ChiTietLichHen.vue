@@ -1,5 +1,5 @@
 <template lang="">
-  <h2 style="margin-bottom: 30px;">Chi tiết lịch hẹn</h2>
+  <h2 style="margin-bottom: 30px">Chi tiết lịch hẹn</h2>
   <div>
     <table class="table table-bordered mt-4">
       <thead>
@@ -19,7 +19,7 @@
           <td>{{ appointment.nhan_vien?.ho_ten }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>{{ appointment.ghi_chu }}</td>
-          <td>
+          <td v-if="appointment.trang_thai !== 'Đang Thực Hiện'">
             <button class="btn btn-info btn-sm" @click="openModal(appointment)">
               Thực hiện
             </button>
@@ -110,7 +110,10 @@ export default {
             },
           }
         );
-        console.log("response.data.chi_tiet_lich_hen", response.data.chi_tiet_lich_hen);
+        console.log(
+          "response.data.chi_tiet_lich_hen",
+          response.data.chi_tiet_lich_hen
+        );
         this.appointmentDetail = response.data.chi_tiet_lich_hen;
       } catch (error) {
         console.error("Lỗi khi lấy chi tiết lịch hẹn:", error);

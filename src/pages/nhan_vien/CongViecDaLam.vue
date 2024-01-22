@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 style="margin-bottom: 30px">Công việc đã làm</h2>
+    <h2 style="margin-bottom: 30px">CÔNG VIỆC ĐÃ HOÀN THÀNH</h2>
     <table class="table table-bordered table-responsive mt-2">
       <thead>
         <tr>

@@ -26,10 +26,10 @@
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Khách hàng</th>
+          <th scope="col">Thời giạn hẹn</th>
           <th scope="col">Dịch vụ</th>
           <th scope="col">Trạng thái dịch vụ</th>
-          <th scope="col">Thời giạn hẹn</th>
-          <th scope="col">Tiền cọc</th>
+          <th scope="col">Nhân viên</th>
           <th scope="col">Tổng tiền</th>
           <th scope="col">Trạng thái</th>
           <th scope="col">Lựa chọn</th>
@@ -39,6 +39,7 @@
         <tr v-for="(appointment, id) in appointments" :key="id">
           <th scope="row">{{ id + 1 }}</th>
           <td>{{ appointment.khach_hanh.ho_ten }}</td>
+          <td>{{ formatDate(appointment.thoi_gian_hen) }}</td>
           <td>
             <ul>
               <li
@@ -59,12 +60,21 @@
               }}
             </tr>
           </td>
-          <td>{{ formatDate(appointment.thoi_gian_hen) }}</td>
-          <td>{{ appointment.tien_coc }}</td>
-          <td>{{ appointment.tong_tien }}</td>
+          <td>
+            <tr
+              v-for="(service, serviceIndex) in appointment.chi_tiet_lich_hen"
+              :key="serviceIndex"
+            >
+              {{
+                service.nhan_vien ? service.nhan_vien.ho_ten : "Chưa Thực Hiện"
+              }}
+            </tr>
+          </td>
+          <td>{{ formatNumber(appointment.tong_tien) }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>
             <button
+              v-if="appointment.trang_thai !== 'Đã Duyệt'"
               class="btn btn-info btn-sm"
               @click="duyetLichHen(appointment.id)"
             >
@@ -88,7 +98,8 @@ import axios from "axios";
 import API from "@/api";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/dist/sweetalert2.css";
-import {convertDateTimeFormat} from "@/core/convertDateTimeFormat.js"
+import { convertDateTimeFormat } from "@/core/convertDateTimeFormat.js";
+import { chuyenDoiSoThanhChuoi } from "../../core/chuyenDoiSoThanhChuoi";
 
 export default {
   data() {
@@ -111,6 +122,9 @@ export default {
     }
   },
   methods: {
+    formatNumber(number){
+      return chuyenDoiSoThanhChuoi(number)
+    },
     formatDate(dateTimeString) {
       return convertDateTimeFormat(dateTimeString);
     },
