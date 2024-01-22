@@ -19,6 +19,7 @@
     >
       Tìm kiếm
     </button>
+    <h4 style="float: right; margin-right: 200px">Tổng tiền: {{ formatNumber(totalAmount)  }}</h4>
   </div>
   <div>
     <table class="table table-bordered mt-4">
@@ -121,9 +122,18 @@ export default {
       console.error("Lỗi trong hook created:", error);
     }
   },
+  computed: {
+    totalAmount() {
+      // Calculate the sum of the 'tong_tien' property in the 'appointments' array
+      return this.appointments.reduce(
+        (total, appointment) => total + appointment.tong_tien,
+        0
+      );
+    },
+  },
   methods: {
-    formatNumber(number){
-      return chuyenDoiSoThanhChuoi(number)
+    formatNumber(number) {
+      return chuyenDoiSoThanhChuoi(number);
     },
     formatDate(dateTimeString) {
       return convertDateTimeFormat(dateTimeString);
