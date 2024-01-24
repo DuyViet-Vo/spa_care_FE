@@ -1,7 +1,47 @@
 <template>
   <div>
-    <h2 style="margin-bottom: 30px;">Nhân viên</h2>
-    <table class="table table-bordered">
+    <h2 style="margin-bottom: 30px">NHÂN VIÊN</h2>
+    <button type="button" class="btn btn-primary mt-2" @click="openModal()">
+      Thêm Nhân Viên
+    </button>
+
+    <!-- Sử dụng modalAppointment để hiển thị modal cụ thể -->
+    <div class="modal" v-if="showModal">
+      <div class="modal-content">
+        <h2 class="text-center">Thêm nhân viên</h2>
+        <label for="category" class="mt-4">Nhập email: </label>
+        <input type="email" v-model="email" />
+        <label for="category" class="mt-4">Chọn chức vụ: </label>
+        <select id="category" v-model="quyen">
+          <option
+            v-for="(nhan_vien, index) in list_nhan_vien"
+            :key="index"
+            :value="nhan_vien.id"
+          >
+            {{ nhan_vien.quyen }}
+          </option>
+        </select>
+        <div class="mt-4">
+          <button
+            type="button"
+            class="btn btn-primary mr-3"
+            @click="CreateNhanVien"
+          >
+            Lưu
+          </button>
+          <button
+            @click="showModal = false"
+            type="button"
+            class="btn btn-danger"
+            style="margin-left: 30px"
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <table class="table table-bordered mt-4">
       <thead>
         <tr>
           <th scope="col">STT</th>
@@ -25,7 +65,12 @@
           <td>{{ user.quyen.ten_quyen }}</td>
           <td>
             <button class="btn btn-info btn-sm">Sửa</button>
-            <button class="btn btn-danger btn-sm">Xoá</button>
+            <button
+              class="btn btn-danger btn-sm"
+              @click="deleteNhanVien(user.email)"
+            >
+              Xoá
+            </button>
           </td>
         </tr>
       </tbody>
@@ -41,6 +86,24 @@ export default {
   data() {
     return {
       users: [],
+      showModal: false,
+      modalAppointment: null,
+      email: null,
+      quyen: null,
+      list_nhan_vien: [
+        {
+          id: 2,
+          quyen: "Nhân viên Spa",
+        },
+        {
+          id: 3,
+          quyen: "Lễ tân",
+        },
+        {
+          id: 4,
+          quyen: "Kế toán",
+        },
+      ],
     };
   },
   async created() {
@@ -51,6 +114,9 @@ export default {
     }
   },
   methods: {
+    openModal() {
+      this.showModal = true;
+    },
     async fetchNhanVien() {
       try {
         const token = await this.$store.getters.getToken;
@@ -65,8 +131,72 @@ export default {
         this.users = response.data;
       } catch (error) {}
     },
+
+    async CreateNhanVien() {
+      try {
+        const token = await this.$store.getters.getToken;
+        const headers = {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+        const create_nhan_vien = await axios.post(
+          API.create_nhan_vien,
+          {
+            email: this.email,
+            quyen: this.quyen,
+          },
+          { headers }
+        );
+        console.log("tra ve: ", create_nhan_vien);
+        this.showModal = false;
+        await this.fetchNhanVien();
+      } catch (error) {
+        console.error("Error creating Nhan Vien:", error);
+      }
+    },
+    async deleteNhanVien(email) {
+      try {
+        const token = await this.$store.getters.getToken;
+        const headers = {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+        const create_nhan_vien = await axios.post(
+          API.create_nhan_vien,
+          {
+            email: email,
+            quyen: 5,
+          },
+          { headers }
+        );
+        console.log("tra ve: ", create_nhan_vien);
+        await this.fetchNhanVien();
+      } catch (error) {
+        console.error("Error creating Nhan Vien:", error);
+      }
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+}
+</style>

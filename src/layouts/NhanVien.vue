@@ -26,6 +26,9 @@
             <router-link to="/nhan-vien/cong-viec-da-hoan-thanh">Công việc đã hoàn thành</router-link>
           </li>
           <li>
+            <router-link to="">Lương</router-link>
+          </li>
+          <li>
             <router-link to="/user/trang-chu">Trở về trang Khách hàng</router-link>
           </li>
         </ul>

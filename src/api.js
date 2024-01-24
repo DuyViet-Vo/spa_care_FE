@@ -15,6 +15,6 @@ const API = {
   get_send_email_lich_hen: API_ENDPOINTS.apiUrl + "/send-email/chua-duyet",
   get_combo: API_ENDPOINTS.apiUrl + "/combo",
   get_email_duyet: API_ENDPOINTS.apiUrl + "/send-email/da-duyet",
-
+  create_nhan_vien: API_ENDPOINTS.apiUrl + "/create-nhan-vien",
 };
 export default API;
