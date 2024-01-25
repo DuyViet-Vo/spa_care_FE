@@ -148,7 +148,19 @@ export default {
           nhan_vien: this.nhan_vien,
           ghi_chu: this.ghi_chu,
         };
-        const response_chi_tiet = await axios.patch(
+        const response_chi_tiet = await axios.get(
+          API.get_chi_tiet_lich_hen + "/" + id,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("lichhen: ", response_chi_tiet.data.lich_hen);
+        const id_lich_hen = response_chi_tiet.data.lich_hen;
+
+        const response_update = await axios.patch(
           API.get_chi_tiet_lich_hen + "/" + id,
           requestData,
           {
@@ -161,6 +173,17 @@ export default {
         );
         this.showModal = false;
         await this.fetchAppointmentDetail();
+        const url = "http://localhost:8000/api/send-email/thuc-hien";
+        const data = {
+          id_chi_tiet: id,
+        };
+        const response = await axios.post(url, data, {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
       } catch (error) {
         console.error("loi : ", error);
       }

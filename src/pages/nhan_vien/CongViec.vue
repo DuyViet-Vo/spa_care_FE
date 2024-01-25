@@ -1,5 +1,5 @@
 <template>
-  <h2 style="margin-bottom: 30px;">CÔNG VIỆC</h2>
+  <h2 style="margin-bottom: 30px">CÔNG VIỆC</h2>
   <div>
     <table class="table table-bordered table-responsive mt-2">
       <thead>
@@ -35,7 +35,7 @@
 <script>
 import axios from "axios";
 import API from "@/api";
-import {convertDateTimeFormat} from "@/core/convertDateTimeFormat.js"
+import { convertDateTimeFormat } from "@/core/convertDateTimeFormat.js";
 
 export default {
   data() {
@@ -95,8 +95,19 @@ export default {
           }
         );
         await this.fetchAppointments();
+        const url = "http://localhost:8000/api/send-email/da-thuc-hien";
+        const data = {
+          id_chi_tiet: id,
+        };
+        const response = await axios.post(url, data, {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
       } catch (error) {
-        console.error("loi: ", error)
+        console.error("loi: ", error);
       }
     },
   },
