@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 style="margin-bottom: 30px;">Dịch vụ</h2>
+    <h2 style="margin-bottom: 30px">Dịch vụ</h2>
     <button
       type="button"
       class="btn btn-primary mt-2"
@@ -8,6 +8,12 @@
     >
       Thêm dịch vụ
     </button>
+    <div style="margin-top: 20px">
+      <input type="text" v-model="searchQuery" placeholder="Nhập tên " />
+      <button class="btn btn-primary" style="margin-left: 30px">
+        Tìm kiếm
+      </button>
+    </div>
 
     <!-- Hộp hiển thị khi thêm dịch vụ -->
     <div v-if="showAddServiceModal" class="overlay">

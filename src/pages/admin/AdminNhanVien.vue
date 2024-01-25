@@ -1,16 +1,29 @@
 <template>
   <div>
     <h2 style="margin-bottom: 30px">NHÂN VIÊN</h2>
-    <button type="button" class="btn btn-primary mt-2" @click="openModal()">
-      Thêm Nhân Viên
-    </button>
 
+    <div class="search-container">
+      <button type="button" class="btn btn-primary mt-2" @click="openModal()">
+        Thêm Nhân Viên
+      </button>
+      <div style="margin-top: 20px">
+        <input type="text" v-model="searchQuery" placeholder="Nhập tên " />
+        <button class="btn btn-primary" style="margin-left: 30px">
+          Tìm kiếm
+        </button>
+      </div>
+      <h4 style="float: right; margin-right: 200px">
+        Tổng tiền lương: {{ formatNumber(totalSalary) }}
+      </h4>
+    </div>
     <!-- Sử dụng modalAppointment để hiển thị modal cụ thể -->
     <div class="modal" v-if="showModal">
       <div class="modal-content">
         <h2 class="text-center">Thêm nhân viên</h2>
         <label for="category" class="mt-4">Nhập email: </label>
         <input type="email" v-model="email" />
+        <label for="category" class="mt-4">Nhập lương: </label>
+        <input type="number" v-model="luong" />
         <label for="category" class="mt-4">Chọn chức vụ: </label>
         <select id="category" v-model="quyen">
           <option
@@ -51,6 +64,7 @@
           <th scope="col">Email</th>
           <th scope="col">Địa chỉ</th>
           <th scope="col">Chức vụ</th>
+          <th scope="col">Lương</th>
           <th scope="col">Lựa chọn</th>
         </tr>
       </thead>
@@ -63,6 +77,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.dia_chi }}</td>
           <td>{{ user.quyen.ten_quyen }}</td>
+          <td>{{ formatNumber(user.luong) }}</td>
           <td>
             <button class="btn btn-info btn-sm">Sửa</button>
             <button
@@ -81,6 +96,7 @@
 <script>
 import axios from "axios";
 import API from "@/api";
+import { chuyenDoiSoThanhChuoi } from "../../core/chuyenDoiSoThanhChuoi";
 
 export default {
   data() {
@@ -90,6 +106,7 @@ export default {
       modalAppointment: null,
       email: null,
       quyen: null,
+      luong: null,
       list_nhan_vien: [
         {
           id: 2,
@@ -113,7 +130,15 @@ export default {
       console.error("Lỗi trong hook created:", error);
     }
   },
+  computed: {
+    totalSalary() {
+      return this.users.reduce((total, user) => total + user.luong, 0);
+    },
+  },
   methods: {
+    formatNumber(number) {
+      return chuyenDoiSoThanhChuoi(number);
+    },
     openModal() {
       this.showModal = true;
     },
@@ -144,6 +169,7 @@ export default {
           {
             email: this.email,
             quyen: this.quyen,
+            luong: this.luong,
           },
           { headers }
         );
@@ -166,6 +192,7 @@ export default {
           {
             email: email,
             quyen: 5,
+            luong: 0,
           },
           { headers }
         );
