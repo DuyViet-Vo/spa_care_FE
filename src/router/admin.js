@@ -33,6 +33,11 @@ const admin = [
         name: "admin-khach-hang",
         component: () => import("@/pages/admin/AdminKhachHang.vue"),
       },
+      {
+        path: "/admin/combo",
+        name: "admin-combo",
+        component: () => import("@/pages/admin/AdminCombo.vue"),
+      },
     ],
   },
 ];

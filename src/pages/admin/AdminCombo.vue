@@ -1,26 +1,20 @@
 <template>
   <div>
-    <h2 style="margin-bottom: 30px">Dịch vụ</h2>
+    <h2 style="margin-bottom: 30px">COMBO</h2>
     <button
       type="button"
       class="btn btn-primary mt-2"
       @click="showAddServiceModal = true"
     >
-      Thêm dịch vụ
+      Thêm combo
     </button>
-    <div style="margin-top: 20px">
-      <input type="text" v-model="searchQuery" placeholder="Nhập tên " />
-      <button class="btn btn-primary" style="margin-left: 30px">
-        Tìm kiếm
-      </button>
-    </div>
 
     <!-- Hộp hiển thị khi thêm dịch vụ -->
     <div v-if="showAddServiceModal" class="overlay">
       <div class="add-service-modal">
         <div>
-          <h2>Thêm dịch vụ</h2>
-          <form @submit.prevent="saveService">
+          <h2>Thêm combo</h2>
+          <form @submit.prevent="saveProduct">
             <label for="image" class="mt-4">Hình ảnh:</label>
             <input
               type="file"
@@ -29,20 +23,21 @@
               accept="image/*"
             />
             <br />
-            <label for="serviceName" class="mt-4">Tên dịch vụ:</label>
-            <input type="text" id="serviceName" v-model="service.name" />
+            <label for="serviceName" class="mt-4">Tên combo:</label>
+            <input
+              type="text"
+              id="serviceName"
+              v-model="product.ten_san_pham"
+            />
             <br />
             <label for="description" class="mt-5">Mô tả:</label>
-            <textarea id="description" v-model="service.description"></textarea>
+            <textarea id="description" v-model="product.mo_ta"></textarea>
             <br />
             <label for="price" class="mt-4">Giá:</label>
-            <input type="number" id="price" v-model="service.price" />
-            <br />
-            <label for="price" class="mt-4">Thời gian thực hiện:</label>
-            <input type="number" id="price" v-model="service.time" />
+            <input type="number" id="price" v-model="product.gia" />
             <br />
             <label for="category" class="mt-4">Danh mục:</label>
-            <select id="category" v-model="service.category">
+            <select id="category" v-model="product.danh_muc">
               <option
                 v-for="(category, index) in categories"
                 :key="index"
@@ -59,7 +54,7 @@
               type="submit"
               class="btn btn-primary mt-3"
               style="margin-left: 20px"
-              @click="saveDichVu"
+              @click="saveSanPham"
             >
               Thêm
             </button>
@@ -68,15 +63,14 @@
       </div>
     </div>
 
-    <table class="table table-bordered table-responsive mt-4">
+    <table class="table table-bordered mt-4">
       <thead>
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Hình ảnh</th>
-          <th scope="col">Tên dịch vụ</th>
+          <th scope="col">Tên Combo</th>
           <th scope="col">Mô tả</th>
           <th scope="col">Giá</th>
-          <th scope="col" style="width: 120px">Thời gian thực hiện(giờ)</th>
           <th scope="col">Danh mục</th>
           <th scope="col">Lựa chọn</th>
         </tr>
@@ -93,16 +87,15 @@
               />
             </div>
           </td>
-          <td>{{ appointment.ten_dich_vu }}</td>
+          <td>{{ appointment.ten_combo }}</td>
           <td>{{ appointment.mo_ta }}</td>
           <td>{{ formatNumber(appointment.gia) }}</td>
-          <td>{{ appointment.thoi_gian_thuc_hien }}</td>
           <td>{{ appointment.danh_muc.ten_danh_muc }}</td>
           <td>
             <button class="btn btn-info btn-sm">Sửa</button>
             <button
               class="btn btn-danger btn-sm"
-              @click="deleteDichVu(appointment.id)"
+              @click="deleteSanPham(appointment.id)"
             >
               Xoá
             </button>
@@ -123,20 +116,20 @@ export default {
     return {
       appointments: [],
       showAddServiceModal: false,
-      service: {
-        image: null,
-        name: "",
-        description: "",
-        price: null,
-        category: "",
-        time: null,
+      product: {
+        hinh_anh: null,
+        ten_san_pham: "",
+        mo_ta: "",
+        gia: null,
+        so_luong: "",
+        danh_muc: null,
       },
       categories: [],
     };
   },
   async created() {
     try {
-      await this.fetchDichVu();
+      await this.fetchSanPham();
       await this.fetchDanhMuc();
     } catch (error) {
       console.error("Lỗi trong hook created:", error);
@@ -146,11 +139,14 @@ export default {
     formatNumber(number) {
       return chuyenDoiSoThanhChuoi(number);
     },
-    async fetchDichVu() {
+    async fetchSanPham() {
       try {
-        const response = await axios.get(API.get_dich_vu, {
+        const url = "http://localhost:8000/api/combo";
+        const token = await this.$store.getters.getToken;
+        const response = await axios.get(url, {
           headers: {
             Accept: "application/json",
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -176,17 +172,17 @@ export default {
       }
     },
 
-    async saveDichVu() {
+    async saveSanPham() {
       try {
-        const result_dich_vu = await axios.post(
-          API.get_dich_vu,
+        const result_san_pham = await axios.post(
+          API.get_san_pham,
           {
-            hinh_anh: this.service.image,
-            ten_dich_vu: this.service.name,
-            mo_ta: this.service.description,
-            gia: this.service.price,
-            thoi_gian_thuc_hien: this.service.time,
-            danh_muc: this.service.category,
+            hinh_anh: this.product.hinh_anh,
+            ten_san_pham: this.product.ten_san_pham,
+            mo_ta: this.product.mo_ta,
+            gia: this.product.gia,
+            so_luong: this.product.so_luong,
+            danh_muc: this.product.danh_muc,
           },
           {
             headers: {
@@ -194,11 +190,8 @@ export default {
             },
           }
         );
-
-        // Xử lý kết quả theo cần thiết
-        console.log("Kết quả từ saveDichVu:", result_dich_vu);
-        this.cancelAddService();
-        await this.fetchDichVu();
+        console.log("Kết quả từ san pham:", result_san_pham);
+        await this.fetchSanPham();
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
@@ -215,7 +208,7 @@ export default {
 
         reader.onload = (e) => {
           // Lưu chuỗi base64 vào data property
-          this.service.image = e.target.result;
+          this.product.hinh_anh = e.target.result;
         };
 
         // Đọc ảnh và chuyển đổi thành base64
@@ -223,11 +216,11 @@ export default {
       }
     },
 
-    async deleteDichVu(appointmentId) {
+    async deleteSanPham(appointmentId) {
       try {
         const token = await this.$store.getters.getToken;
         const result = await axios.delete(
-          `${API.get_dich_vu}/${appointmentId}`,
+          `${API.get_san_pham}/${appointmentId}`,
           {
             headers: {
               Accept: "application/json",
@@ -235,7 +228,7 @@ export default {
             },
           }
         );
-        await this.fetchDichVu();
+        await this.fetchSanPham();
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }

@@ -29,7 +29,7 @@
           <router-link to="/admin/dich-vu">Dịch Vụ</router-link>
         </li>
         <li>
-          <router-link to="/admin/san-pham">Combo</router-link>
+          <router-link to="/admin/combo">Combo</router-link>
         </li>
 
         <li>
