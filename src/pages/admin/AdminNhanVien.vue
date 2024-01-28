@@ -21,7 +21,7 @@
       <div class="modal-content">
         <h2 class="text-center">Thêm nhân viên</h2>
         <label for="category" class="mt-4">Nhập email: </label>
-        <input type="email" v-model="email" />
+        <input type="email" v-model="email" :readonly="editMode" />
         <label for="category" class="mt-4">Nhập lương: </label>
         <input type="number" v-model="luong" />
         <label for="category" class="mt-4">Chọn chức vụ: </label>
@@ -35,21 +35,32 @@
           </option>
         </select>
         <div class="mt-4">
-          <button
-            type="button"
-            class="btn btn-primary mr-3"
-            @click="CreateNhanVien"
-          >
-            Lưu
-          </button>
-          <button
-            @click="showModal = false"
-            type="button"
-            class="btn btn-danger"
-            style="margin-left: 30px"
-          >
-            Đóng
-          </button>
+          <div class="mt-4">
+            <button
+              type="button"
+              class="btn btn-primary mr-3"
+              @click="CreateNhanVien"
+              v-if="!selectedUserId"
+            >
+              Lưu
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary mr-3"
+              @click="updateNhanVien"
+              v-if="selectedUserId"
+            >
+              Cập nhật
+            </button>
+            <button
+              @click="showModal = false"
+              type="button"
+              class="btn btn-danger"
+              style="margin-left: 30px"
+            >
+              Đóng
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -79,7 +90,9 @@
           <td>{{ user.quyen.ten_quyen }}</td>
           <td>{{ formatNumber(user.luong) }}</td>
           <td>
-            <button class="btn btn-info btn-sm">Sửa</button>
+            <button class="btn btn-info btn-sm" @click="openEditModal(user)">
+              Sửa
+            </button>
             <button
               class="btn btn-danger btn-sm"
               @click="deleteNhanVien(user.email)"
@@ -104,6 +117,7 @@ export default {
       users: [],
       showModal: false,
       modalAppointment: null,
+      selectedUserId: null,
       email: null,
       quyen: null,
       luong: null,
@@ -136,6 +150,39 @@ export default {
     },
   },
   methods: {
+    openEditModal(user) {
+      this.selectedUserId = user.id;
+      this.email = user.email;
+      this.quyen = user.quyen.id; // Assuming user.quyen is an object with an id property
+      this.luong = user.luong;
+      this.showModal = true;
+      this.editMode = true;
+    },
+    async updateNhanVien() {
+      try {
+        const token = await this.$store.getters.getToken;
+        const headers = {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+
+        const update_nhan_vien = await axios.patch(
+          API.update_nhan_vien + `/${this.selectedUserId}`,
+          {
+            quyen: this.quyen,
+            luong: this.luong,
+          },
+          { headers }
+        );
+
+        console.log("tra ve: ", update_nhan_vien);
+        this.showModal = false;
+        await this.fetchNhanVien();
+        this.editMode = false;
+      } catch (error) {
+        console.error("Error updating Nhan Vien:", error);
+      }
+    },
     formatNumber(number) {
       return chuyenDoiSoThanhChuoi(number);
     },
