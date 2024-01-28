@@ -1,6 +1,6 @@
 <template>
   <div class="search-container">
-    <h2 style="margin-bottom: 30px;">Khách hàng</h2>
+    <h2 style="margin-bottom: 30px">Khách hàng</h2>
     <input
       type="text"
       v-model="searchQuery"
@@ -53,7 +53,7 @@
               }}
             </tr>
           </td>
-          
+
           <td>{{ appointment.tong_tien }}</td>
           <td>{{ appointment.trang_thai }}</td>
           <td>
@@ -63,6 +63,13 @@
             >
               Xem chi tiết
             </button>
+            <button
+              type="button"
+              class="btn btn-warning"
+              @click="openModal(appointment.id)"
+            >
+              Update lich
+            </button>
           </td>
         </tr>
       </tbody>
@@ -70,33 +77,44 @@
     <!-- Sử dụng modalAppointment để hiển thị modal cụ thể -->
     <div class="modal" v-if="showModal">
       <div class="modal-content">
-        <h2 class="text-center">Duyệt lịch hẹn</h2>
-        <label for="category" class="mt-4">Chọn nhân viên: </label>
-        <select id="category" v-model="nhan_vien">
-          <option
-            v-for="(nhan_vien, index) in list_nhan_vien"
-            :key="index"
-            :value="nhan_vien.id"
-          >
-            {{ nhan_vien.ho_ten }}
-          </option>
-        </select>
+        <h2 class="text-center">Update Lịch</h2>
+        <label for="date">Ngày Hẹn:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          class="form-control"
+          v-model="selectedDate"
+          :min="currentDate"
+          required
+        />
+        <label for="time">Thời Gian Hẹn:</label>
+        <input
+          type="time"
+          id="time"
+          name="time"
+          class="form-control"
+          v-model="selectedTime"
+          required
+        />
         <div class="mt-4">
-          <button
-            type="button"
-            class="btn btn-primary mr-3"
-            @click="duyetLichHen(modalAppointment.id)"
-          >
-            Duyệt
-          </button>
-          <button
-            @click="showModal = false"
-            type="button"
-            class="btn btn-danger"
-            style="margin-left: 30px"
-          >
-            Đóng
-          </button>
+          <div class="mt-4">
+            <button
+              type="button"
+              class="btn btn-primary mr-3"
+              @click="updatLichHen()"
+            >
+              Cập nhật
+            </button>
+            <button
+              @click="showModal = false"
+              type="button"
+              class="btn btn-danger"
+              style="margin-left: 30px"
+            >
+              Đóng
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -108,17 +126,21 @@ import axios from "axios";
 import API from "@/api";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/dist/sweetalert2.css";
-import {convertDateTimeFormat} from "@/core/convertDateTimeFormat.js"
+import { convertDateTimeFormat } from "@/core/convertDateTimeFormat.js";
+import convertToISOString from "@/core/convertToISOString";
 
 export default {
   data() {
     return {
       appointments: [],
-      showModal: false,
       modalAppointment: null,
       nhan_vien: null,
       list_nhan_vien: [],
       searchQuery: "",
+      showModal: false,
+      selectedDate: null,
+      selectedTime: null,
+      selectedAppointmentId: null,
     };
   },
 
@@ -130,12 +152,48 @@ export default {
       console.error("Lỗi trong hook created:", error);
     }
   },
+
+  computed: {
+    currentDate() {
+      return new Date().toISOString().split("T")[0];
+    },
+  },
   methods: {
-    openModal(appointment) {
-      console.log("có lấy đc id", appointment);
-      if (appointment) {
-        this.modalAppointment = appointment;
-        this.showModal = true;
+    openModal(id) {
+      this.selectedAppointmentId = id;
+      this.showModal = true;
+    },
+    async updatLichHen() {
+      const time = this.selectedDate + " " + this.selectedTime;
+      const thoi_gian = convertToISOString(time);
+      const appointmentId = this.selectedAppointmentId;
+      const apiUrl = "http://localhost:8000/api/lich-hen/" + appointmentId;
+      const token = await this.$store.getters.getToken;
+      try {
+        const response = await axios.patch(
+          apiUrl,
+          {
+            thoi_gian_hen: thoi_gian,
+          },
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        this.showModal = false;
+        if (response.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Cập nhật lịch hẹn thành công!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      } catch (error) {
+        onsole.error("API Error:", error);
       }
     },
     async fetchNhanVien() {
